@@ -39,6 +39,8 @@ RUN echo "jenkins:1234AB" | chpasswd
 
 RUN usermod -aG docker jenkins
 
+RUN usermod -aG systemd-journal jenkins
+
 # Standard SSH port
 EXPOSE 22
 
