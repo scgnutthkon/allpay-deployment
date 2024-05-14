@@ -1,0 +1,32 @@
+services:
+  jenkins_blueocean:
+    container_name: jenkins-blueocean
+    image: jenkins-blueocean
+    ports:
+      - 8080:8080
+      - 5000
+    volumes:
+      - /data/jenkins/jenkins-docker-certs:/certs/client
+      - /data/jenkins/jenkins-data:/var/jenkins_home
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    build:
+      dockerfile: ./Dockerfile
+  agent1:
+    container_name: agent1
+    image: jenkins-agent1
+    ports:
+      - 5000
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    build:
+      dockerfile: ./Dockerfile
+
+networks:
+  jenkins:
+    driver: bridge
+
