@@ -1,0 +1,45 @@
+# Use the official Ubuntu base image
+FROM ubuntu:latest
+
+# Install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    openjdk-11-jdk \
+    openssh-server \
+    git \
+    curl \
+    wget \
+    unzip \
+    apt-transport-https \
+    ca-certificates \
+    gnupg-agent \
+    software-properties-common
+
+# Install Docker
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# Install Helm
+RUN curl https://baltocdn.com/helm/signing.asc | apt-key add - && \
+    apt-get install apt-transport-https --yes && \
+    echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list && \
+    apt-get update && \
+    apt-get install -y helm
+
+# Set up SSH for Jenkins to communicate with the agent
+RUN mkdir /var/run/sshd
+
+# Create a Jenkins user
+RUN useradd -m -s /bin/bash jenkins
+
+# Set password for the Jenkins user (optional)
+# RUN echo "jenkins:your_password_here" | chpasswd
+
+# Standard SSH port
+EXPOSE 22
+
+VOLUME /var/run/docker.sock:/var/run/docker.sock
+# Start SSH daemon
+CMD ["/usr/sbin/sshd", "-D"]

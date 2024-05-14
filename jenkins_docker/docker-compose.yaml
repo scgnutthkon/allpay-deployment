@@ -18,13 +18,9 @@ services:
     container_name: agent1
     image: jenkins-agent1
     ports:
-      - 5000
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
+      - 22
     build:
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.ssh_agent
 
 networks:
   jenkins:
