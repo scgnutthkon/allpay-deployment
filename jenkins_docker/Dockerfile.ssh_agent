@@ -37,6 +37,8 @@ RUN useradd -m -s /bin/bash jenkins
 # Set password for the Jenkins user (optional)
 RUN echo "jenkins:1234AB" | chpasswd
 
+RUN usermod -aG docker jenkins
+
 # Standard SSH port
 EXPOSE 22
 
