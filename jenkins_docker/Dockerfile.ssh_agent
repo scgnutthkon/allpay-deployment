@@ -35,7 +35,7 @@ RUN mkdir /var/run/sshd
 RUN useradd -m -s /bin/bash jenkins
 
 # Set password for the Jenkins user (optional)
-# RUN echo "jenkins:your_password_here" | chpasswd
+RUN echo "jenkins:1234AB" | chpasswd
 
 # Standard SSH port
 EXPOSE 22
