@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: allpay-webapi-deployment
+  namespace: allpay
+spec:
+  replicas: 3  # Adjust as per your requirements
+  selector:
+    matchLabels:
+      app: allpay-webapi
+  template:
+    metadata:
+      labels:
+        app: allpay-webapi
+    spec:
+      containers:
+      - name: allpay-webapi
+        image: {{ .Values.dockerImages.webAPI }}  # Replace with your Docker image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: {{ .Values.environmentName }}
+        

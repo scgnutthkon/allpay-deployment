@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: allpay-web-deployment
+  namespace: allpay
+spec:
+  replicas: 3  # Adjust as per your requirements
+  selector:
+    matchLabels:
+      app: allpay-web
+  template:
+    metadata:
+      labels:
+        app: allpay-web
+    spec:
+      containers:
+      - name: allpay-web
+        image: {{ .Values.dockerImages.web }}  # Replace with your Docker image
+        ports:
+        - containerPort: 3000
+        
