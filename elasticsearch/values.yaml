@@ -1,0 +1,8 @@
+elasticsearch:
+    fullnameOverride: elasticsearch
+
+kibana:
+    fullnameOverride: kibana
+    elasticsearchHosts: https://elasticsearch:9200
+    elasticsearchCertificateSecret: elasticsearch-master-certs
+    elasticsearchCredentialSecret: elasticsearch-master-credentials

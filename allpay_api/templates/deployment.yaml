@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: allpay-webapi-deployment
-  namespace: allpay
 spec:
   replicas: 3  # Adjust as per your requirements
   selector:
