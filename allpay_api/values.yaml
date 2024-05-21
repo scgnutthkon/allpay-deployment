@@ -1,3 +1,0 @@
-environmentName: Development
-dockerImages:
-  webAPI: '10.100.12.93:5000/allpay-webapi'

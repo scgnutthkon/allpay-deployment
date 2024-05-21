@@ -1,18 +1,18 @@
-# Default values for allpay-api.
+# Default values for allpay-web.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: 10.100.12.93:5000/allpay-webapi
+  repository: 10.100.12.93:5000/allpay-web-dev
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "allpay-api"
+fullnameOverride: "allpay-web"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -23,7 +23,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "allpay-web"
 
 podAnnotations: {}
 podLabels: {}
@@ -41,7 +41,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 3000
 
 ingress:
   enabled: true
@@ -105,7 +105,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Development

@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "allpay-api.name" -}}
+{{- define "allpay-web.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "allpay-api.fullname" -}}
+{{- define "allpay-web.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "allpay-api.chart" -}}
+{{- define "allpay-web.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "allpay-api.labels" -}}
-helm.sh/chart: {{ include "allpay-api.chart" . }}
-{{ include "allpay-api.selectorLabels" . }}
+{{- define "allpay-web.labels" -}}
+helm.sh/chart: {{ include "allpay-web.chart" . }}
+{{ include "allpay-web.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "allpay-api.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "allpay-api.name" . }}
+{{- define "allpay-web.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "allpay-web.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "allpay-api.serviceAccountName" -}}
+{{- define "allpay-web.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "allpay-api.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "allpay-web.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

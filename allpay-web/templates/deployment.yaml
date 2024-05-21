@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "allpay-api.fullname" . }}
+  name: {{ include "allpay-web.fullname" . }}
   labels:
-    {{- include "allpay-api.labels" . | nindent 4 }}
+    {{- include "allpay-web.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "allpay-api.selectorLabels" . | nindent 6 }}
+      {{- include "allpay-web.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "allpay-api.labels" . | nindent 8 }}
+        {{- include "allpay-web.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "allpay-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "allpay-web.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -48,10 +48,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.env }}
-          env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
