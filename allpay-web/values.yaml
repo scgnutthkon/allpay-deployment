@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 10.100.12.93:5000/allpay-web-dev
+  repository: allpay-registry.scg.com/allpay-web-dev
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
