@@ -55,9 +55,9 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - secretName: allpay-tls
+      hosts:
+        - vendor-portal-api-dev.scg.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
