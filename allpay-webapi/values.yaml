@@ -54,10 +54,10 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls:
-    - secretName: allpay-tls
-      hosts:
-        - allpay-vendor-api-dev.scg.com
+  tls: []
+    # - secretName: allpay-tls
+    #   hosts:
+    #     - allpay-vendor-api-dev.scg.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
