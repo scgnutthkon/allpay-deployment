@@ -1,8 +1,21 @@
 elasticsearch:
     fullnameOverride: elasticsearch
+    secret:
+        password: Pluto@2024
 
 kibana:
     fullnameOverride: kibana
     elasticsearchHosts: https://elasticsearch:9200
     elasticsearchCertificateSecret: elasticsearch-master-certs
     elasticsearchCredentialSecret: elasticsearch-master-credentials
+    ingress:
+        enabled: true
+        className: "nginx"
+        pathtype: ImplementationSpecific
+        annotations: {}
+        # kubernetes.io/ingress.class: nginx
+        # kubernetes.io/tls-acme: "true"
+        hosts:
+          - host: allpay-elk.scg.com
+            paths:
+                - path: /
