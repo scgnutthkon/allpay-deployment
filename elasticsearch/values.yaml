@@ -6,8 +6,8 @@ elasticsearch:
 kibana:
     fullnameOverride: kibana
     elasticsearchHosts: https://elasticsearch:9200
-    elasticsearchCertificateSecret: elasticsearch-master-certs
-    elasticsearchCredentialSecret: elasticsearch-master-credentials
+    elasticsearchCertificateSecret: elasticsearch-certs
+    elasticsearchCredentialSecret: elasticsearch-credentials
     ingress:
         enabled: true
         className: "nginx"
