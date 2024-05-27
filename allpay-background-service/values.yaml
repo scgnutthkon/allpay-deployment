@@ -108,4 +108,4 @@ affinity: {}
 
 env:
   - name: ASPNETCORE_ENVIRONMENT
-    value: Development
+    value: Dev
