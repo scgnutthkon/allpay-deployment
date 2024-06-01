@@ -6,25 +6,29 @@ services:
     - "5000:5000"
     environment:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_STORAGE_DELETE_ENABLED: false
     volumes:
       - /data/registry:/data
     networks:
-      - docker-registry
+      - docker_registry
 
   registry-ui:
     container_name: docker-registry-ui
     image: joxit/docker-registry-ui:latest
     restart: always
     ports:
-      - 8080:5001
+      - 5001:80
     environment:
       REGISTRY_TITLE: AllPay Registry
-      REGISTRY_URL: http://docker-registry:5000
+      REGISTRY_URL: https://allpay-registry.scg.com
       REGISTRY_SSL: 'false'
+      DELETE_IMAGES: 'true'
+      SINGLE_REGISTRY: 'true'
+      SHOW_CONTENT_DIGEST: 'true'
     depends_on:
       - registry
     networks:
-      - docker-registry
+      - docker_registry
 
 networks:
   docker_registry:
