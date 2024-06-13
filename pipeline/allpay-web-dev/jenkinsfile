@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                script {
+                    git branch: 'main',
+                        credentialsId: 'scgnutthkon_github',
+                        url: 'https://github.com/CADGithubMGR/AllPayVendorWeb.git'
+
+                    stash includes: '**/*', name: 'project_source'
+                }
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                unstash 'project_source'
+                sh 'export HTTP_PROXY=http://10.100.12.240:6969/'
+                sh 'export HTTPS_PROXY=http://10.100.12.240:6969/'
+                sh 'export NO_PROXY=127.*,10.100.*'
+                sh 'docker build -t localhost:5000/allpay-web-dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
+                sh 'docker push localhost:5000/allpay-web-dev'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo Restarting deployment...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                        sh '''
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-web -n allpay-dev'
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
