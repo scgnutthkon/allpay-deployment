@@ -41,6 +41,11 @@ RUN usermod -aG docker jenkins
 
 RUN usermod -aG systemd-journal jenkins
 
+COPY patch/patch_agent.sh /root
+
+RUN chown root /root/patch_agent.sh
+RUN chown 744 /root/patch_agent.sh
+
 # Standard SSH port
 EXPOSE 22
 

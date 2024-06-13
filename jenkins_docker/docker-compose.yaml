@@ -2,6 +2,7 @@ services:
   jenkins_blueocean:
     container_name: jenkins-blueocean
     image: jenkins-blueocean
+    restart: always
     ports:
       - 8080:8080
       - 5000
@@ -17,6 +18,7 @@ services:
   agent1:
     container_name: agent1
     image: jenkins-agent1
+    restart: always
     ports:
       - 22
     volumes:
