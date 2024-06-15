@@ -1,0 +1,33 @@
+elasticsearchHosts: "https://elasticsearch-master:9200"
+
+ingress:
+  enabled: true
+  className: "nginx"
+  pathtype: ImplementationSpecific
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: allpay-elk.scg.com
+      paths:
+        - path: /
+
+extraEnvs:
+  - name: server.ssl.enabled
+    value: "false"
+  - name: HTTP_PROXY
+    value: "http://10.100.12.240:6969/"
+  - name: HTTPS_PROXY
+    value: "http://10.100.12.240:6969/"
+  - name: NO_PROXY
+    value: "127.*,172.*,10.100.*,10.101.*,localhost,127.0.0.1,elasticsearch-master"
+  # - name: ELASTICSEARCH_USERNAME
+  #   value: "kibana_system"
+  # - name: ELASTICSEARCH_PASSWORD
+  #   value: "Chni8Rz4cRZ51Ax4"
+  - name: ELASTICSEARCH_SERVICEACCOUNTTOKEN
+    value: "AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1raWJhbmE6Si1EYWdtb2VRNWE3UEotcGhTUW1UZw"
+  - name: server.publicBaseUrl
+    value: "https://allpay-elk.scg.com"
+
+protocol: http
