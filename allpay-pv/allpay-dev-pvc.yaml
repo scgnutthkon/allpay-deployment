@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: allpay-dev-storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "allpay-dev-storage"

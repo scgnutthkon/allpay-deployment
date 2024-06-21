@@ -88,17 +88,15 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+- name: allpay-storage
+  persistentVolumeClaim:
+    claimName: allpay-dev-storage
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+- name: allpay-dev-storage
+  mountPath: "/mnt/data"
 
 nodeSelector: {}
 
