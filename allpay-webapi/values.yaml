@@ -94,8 +94,8 @@ volumes:
     claimName: allpay-dev-storage
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-- name: allpay-dev-storage
+volumeMounts:
+- name: allpay-storage
   mountPath: "/mnt/data"
 
 nodeSelector: {}
