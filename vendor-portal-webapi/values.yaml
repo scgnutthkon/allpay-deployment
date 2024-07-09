@@ -6,13 +6,13 @@ replicaCount: 1
 
 image:
   repository: allpay-registry.scg.com/vendor-portal-webapi
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "vendor-portal-webapi"
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -23,7 +23,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "vendor-portal-webapi"
+  name: ""
 
 podAnnotations: {}
 podLabels: {}
@@ -44,7 +44,7 @@ service:
   port: 8080
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
@@ -107,6 +107,3 @@ tolerations: []
 
 affinity: {}
 
-env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Dev

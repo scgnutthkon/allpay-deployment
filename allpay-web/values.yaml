@@ -6,13 +6,13 @@ replicaCount: 1
 
 image:
   repository: allpay-registry.scg.com/allpay-web-dev
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "allpay-web"
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -44,7 +44,7 @@ service:
   port: 3000
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffering: "on"
