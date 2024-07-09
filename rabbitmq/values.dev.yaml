@@ -6,4 +6,10 @@ auth:
   password: mflv[1234
 
 image:
-  debug: true
+  debug: false
+
+extraEnvVars:
+- name: RABBITMQ_DEFAULT_USER
+  value: admin
+- name: RABBITMQ_DEFAULT_PASS
+  value: mflv[1234
