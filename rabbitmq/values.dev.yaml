@@ -1,2 +1,5 @@
 global:
   storageClass: allpay-rabbitmq-dev-storage
+
+persistence:
+  storageClass: allpay-rabbitmq-dev-storage
