@@ -1,5 +1,6 @@
 global:
   storageClass: allpay-rabbitmq-dev-storage
 
-persistence:
-  storageClass: allpay-rabbitmq-dev-storage
+auth:
+  username: admin
+  password: mflv[1234
