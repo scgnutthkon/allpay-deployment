@@ -1,0 +1,4 @@
+global:
+  storageClass: allpay-redis-dev-storage
+  redis:
+    password: mflv[1234

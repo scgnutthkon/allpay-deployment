@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: allpay-redis-dev
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "allpay-redis-dev-storage"
+  nfs:
+    path: /var/nfs/allpay-redis
+    server: 10.100.12.94
