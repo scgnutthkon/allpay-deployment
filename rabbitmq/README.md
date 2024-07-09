@@ -3,6 +3,11 @@ Add Repository
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
+## Pre-Install
+Create PV
+```sh
+kubectl apply -f ./rabbitmq/pv-dev.yaml
+```
 ## Install RabbitMQ
 #### Dev Environment
 ```sh
