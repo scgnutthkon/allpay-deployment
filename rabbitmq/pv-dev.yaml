@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: allpay-rabbitmq-dev
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "allpay-rabbitmq-dev-storage"
+  nfs:
+    path: /var/nfs/allpay-rabbitmq
+    server: 10.100.12.94
