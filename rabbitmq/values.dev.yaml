@@ -4,3 +4,6 @@ global:
 auth:
   username: admin
   password: mflv[1234
+
+image:
+  debug: true
