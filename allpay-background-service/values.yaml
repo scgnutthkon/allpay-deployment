@@ -6,13 +6,13 @@ replicaCount: 1
 
 image:
   repository: allpay-registry.scg.com/allpay-background-service
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "allpay-background-service"
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -23,7 +23,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "allpay-background-service"
+  name: ""
 
 podAnnotations: {}
 podLabels: {}
@@ -83,27 +83,23 @@ readinessProbe:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 1
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes:
-- name: allpay-storage
-  persistentVolumeClaim:
-    claimName: allpay-dev-storage
+# volumes:
+# - name: allpay-storage
+#   persistentVolumeClaim:
+#     claimName: allpay-dev-storage
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-- name: allpay-storage
-  mountPath: "/mnt/data"
+# volumeMounts:
+# - name: allpay-storage
+#   mountPath: "/mnt/data"
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
-
-env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Dev
