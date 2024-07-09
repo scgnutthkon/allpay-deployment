@@ -19,3 +19,15 @@ helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.dev.yaml -n a
 ```sh
 helm uninstall allpay-rabbitmq -n allpay-dev
 ```
+
+## Post Install
+Change password of user by enter the container.
+```sh
+ kubectl exec -it  allpay-rabbitmq-0 -n allpay-dev -- /bin/bash
+```
+Run command for change password in container
+```sh
+rabbitmqctl change_password admin mflv[1234
+```
+
+
