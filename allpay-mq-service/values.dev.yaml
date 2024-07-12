@@ -1,0 +1,17 @@
+image:
+  pullPolicy: Always
+
+# Additional volumes on the output Deployment definition.
+volumes:
+- name: allpay-storage
+  persistentVolumeClaim:
+    claimName: allpay-dev-storage
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+- name: allpay-storage
+  mountPath: "/mnt/data"
+
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Dev

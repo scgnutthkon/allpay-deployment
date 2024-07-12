@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                script {
+                    git branch: 'main',
+                        credentialsId: 'scgnutthkon_github',
+                        url: 'https://github.com/CADGithubMGR/AllpayMQWorker.git'
+
+                    stash includes: '**/*', name: 'project_source'
+                }
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                unstash 'project_source'
+                sh 'docker build -t localhost:5000/allpay-mq-service -f AllPayMQService/Dockerfile .'
+                sh 'docker push localhost:5000/allpay-mq-service'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo Restarting deployment...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                        sh '''
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-mq-service -n allpay-dev'
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
