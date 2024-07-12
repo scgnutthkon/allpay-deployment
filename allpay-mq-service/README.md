@@ -35,7 +35,7 @@ To install the chart with the release name `allpay-mq-service`:
 #### Environment Dev
 
 ```bash
-helm install allpay-background-service ./allpay-background-service -f ./allpay-background-service/values.dev.yaml -n allpay-dev
+helm install allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.dev.yaml -n allpay-dev
 ```
 
 The command deploys the AllPay MQ Service on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
