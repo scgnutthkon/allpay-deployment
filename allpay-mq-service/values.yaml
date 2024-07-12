@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: allpay-registry.scg.com/allpay-background-service
+  repository: allpay-registry.scg.com/allpay-mq-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
