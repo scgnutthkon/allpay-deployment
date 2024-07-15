@@ -37,6 +37,11 @@ To install the chart with the release name `vendor-portal-web`:
 ```bash
 helm install vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.dev.yaml -n allpay-dev
 ```
+#### Environment QAS
+
+```bash
+helm install vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.qas.yaml -n allpay-qas
+```
 
 The command deploys the Vendor Portal Web on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -48,6 +53,11 @@ To upgrade chart with the release name `vendor-portal-web`:
 
 ```bash
 helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.dev.yaml -n allpay-dev
+```
+#### Environment QAS
+
+```bash
+helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.qas.yaml -n allpay-qas
 ```
 
 The command upgrade the Vendor Portal Web on the Kubernetes cluster.
@@ -61,6 +71,11 @@ To uninstall/delete the `vendor-portal-web` deployment:
 ```bash
 helm uninstall vendor-portal-web -n allpay-dev
 ```
+#### Environment QAS
+
+```bash
+helm uninstall vendor-portal-qas -n allpay-qas
+```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
@@ -70,7 +85,7 @@ The following table lists the configurable parameters of the Vendor Portal Web c
 
 | Parameter                        | Description                                                  | Default                   |
 |----------------------------------|--------------------------------------------------------------|---------------------------|
-| `image.repository`               | Image repository                                             | `allpay-registry.scg.com/vendor-portal-web` |
+| `image.repository`               | Image repository                                             | `allpay-registry.scg.com/vendor-portal-web-[env]` |
 | `image.tag`                      | Image tag                                                    | `latest`                  |
 | `image.pullPolicy`               | Image pull policy                                            | `IfNotPresent`            |
 | `replicaCount`                   | Number of replicas                                           | `1`                       |

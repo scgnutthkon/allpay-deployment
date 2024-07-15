@@ -37,6 +37,11 @@ To install the chart with the release name `allpay-web`:
 ```bash
 helm install allpay-web ./allpay-web -f ./allpay-web/values.dev.yaml -n allpay-dev
 ```
+#### Environment QAS
+
+```bash
+helm install allpay-web ./allpay-web -f ./allpay-web/values.qas.yaml -n allpay-qas
+```
 
 The command deploys the AllPay Web on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -48,6 +53,11 @@ To upgrade chart with the release name `allpay-web`:
 
 ```bash
 helm upgrade allpay-web ./allpay-web -f ./allpay-web/values.dev.yaml -n allpay-dev
+```
+#### Environment QAS
+
+```bash
+helm upgrade allpay-web ./allpay-web -f ./allpay-web/values.qas.yaml -n allpay-qas
 ```
 
 The command upgrade the AllPay Web on the Kubernetes cluster.
@@ -61,6 +71,11 @@ To uninstall/delete the `allpay-web` deployment:
 ```bash
 helm uninstall allpay-web -n allpay-dev
 ```
+#### Environment QAS
+
+```bash
+helm uninstall allpay-web -n allpay-qas
+```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
@@ -70,7 +85,7 @@ The following table lists the configurable parameters of the AllPay Web chart an
 
 | Parameter                        | Description                                                  | Default                   |
 |----------------------------------|--------------------------------------------------------------|---------------------------|
-| `image.repository`               | Image repository                                             | `allpay-registry.scg.com/allpay-web` |
+| `image.repository`               | Image repository                                             | `allpay-registry.scg.com/allpay-web-[env]` |
 | `image.tag`                      | Image tag                                                    | `latest`                  |
 | `image.pullPolicy`               | Image pull policy                                            | `IfNotPresent`            |
 | `replicaCount`                   | Number of replicas                                           | `1`                       |
