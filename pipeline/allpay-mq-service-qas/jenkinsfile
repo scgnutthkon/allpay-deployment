@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
         TAG_NAME = ''
     }
@@ -14,8 +14,8 @@ pipeline {
                 script {
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
-                        url: 'https://github.com/CADGithubMGR/AllPayVendorApi.git'
-                    
+                        url: 'https://github.com/CADGithubMGR/AllpayMQWorker.git'
+
                     // Get the latest tag
                     TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
 
@@ -33,10 +33,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh 'ls -al'
-                sh 'echo $HTTP_PROXY'
-                sh "docker build -t localhost:5000/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
-                sh "docker push localhost:5000/allpay-webapi:${TAG_NAME}"
+                sh "docker build -t localhost:5000/allpay-mq-service:${TAG_NAME} -f AllPayMQService/Dockerfile ."
+                sh "docker push localhost:5000/allpay-mq-service:${TAG_NAME}"
             }
         }
         stage('Deploy') {
@@ -44,10 +42,13 @@ pipeline {
                 script {
                     sh 'echo Update version...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                        sh '''
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-mq-service -n allpay-dev'
+                        '''
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment allpay-webapi allpay-webapi=allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment allpay-webapi -n allpay-qas'
+                            kubectl set image deployment allpay-mq-service allpay-mq-service=allpay-registry.scg.com/allpay-mq-service:${TAG_NAME} -n allpay-qas && 
+                            kubectl rollout restart deployment allpay-mq-service -n allpay-qas'
                         """
                     }
                 }

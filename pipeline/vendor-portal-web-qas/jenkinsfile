@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        TAG_NAME = ''
-    }
-
     stages {
         stage('Checkout') {
             agent {
@@ -15,12 +11,6 @@ pipeline {
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
                         url: 'https://github.com/CADGithubMGR/VendorPortalWeb.git'
-
-                    TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-
-                    
-                    // Checkout the latest tag
-                    sh "git checkout ${TAG_NAME}"
 
                     stash includes: '**/*', name: 'project_source'
                 }
@@ -33,8 +23,8 @@ pipeline {
             steps {
                 unstash 'project_source'
                 sh 'ls -al'
-                sh "docker build -t localhost:5000/vendor-portal-web-qas:${TAG_NAME} --build-arg='BUILD_ENV=dev' -f Dockerfile ."
-                sh "docker push localhost:5000/vendor-portal-web-qas:${TAG_NAME}"
+                sh 'docker build -t localhost:5000/vendor-portal-web-dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
+                sh 'docker push localhost:5000/vendor-portal-web-dev'
             }
         }
         stage('Deploy') {
@@ -42,12 +32,9 @@ pipeline {
                 script {
                     sh 'echo Restarting deployment...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-
-                        sh """
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment vendor-portal-web vendor-portal-web=allpay-registry.scg.com/vendor-portal-web-qas:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment vendor-portal-web -n allpay-qas'
-                        """
+                        sh '''
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment vendor-portal-web -n allpay-dev'
+                        '''
                     }
                 }
             }
