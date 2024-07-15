@@ -23,7 +23,7 @@ ingress:
 volumes:
 - name: allpay-storage
   persistentVolumeClaim:
-    claimName: allpay-dev-storage
+    claimName: allpay-qas-storage
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
