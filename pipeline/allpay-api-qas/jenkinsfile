@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    environment {
+        TAG_NAME = ''
+    }
 
     stages {
         stage('Checkout') {
@@ -14,6 +18,7 @@ pipeline {
                     
                     // Get the latest tag
                     TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+
                     
                     // Checkout the latest tag
                     sh "git checkout ${TAG_NAME}"
@@ -30,18 +35,19 @@ pipeline {
                 unstash 'project_source'
                 sh 'ls -al'
                 sh 'echo $HTTP_PROXY'
-                sh 'docker build -t localhost:5000/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile .'
-                sh 'docker push localhost:5000/allpay-webapi:${TAG_NAME}'
+                sh "docker build -t localhost:5000/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
+                sh "docker push localhost:5000/allpay-webapi:${TAG_NAME}"
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    sh 'echo Restarting deployment...'
+                    sh 'echo Upgrade deployment...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-                        sh '''
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-webapi -n allpay-qas --set image.tag=${TAG_NAME}'
-                        '''
+                        sh """
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl set image deployment allpay-webapi allpay-webapi=allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -n allpay-qas && 
+                            kubectl rollout restart deployment allpay-webapi -n allpay-qas'
+                        """
                     }
                 }
             }
