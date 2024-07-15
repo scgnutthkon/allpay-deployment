@@ -13,13 +13,20 @@ kubectl apply -f ./redis/pv-dev.yaml
 ```sh
 helm install allpay-redis bitnami/redis -f ./redis/values.dev.yaml -n allpay-dev
 ```
+#### QAS Environment
+```sh
+helm install allpay-redis bitnami/redis -f ./redis/values.qas.yaml -n allpay-qas
+```
 
 ## Uninstall Redis
 #### Dev Environment
 ```sh
 helm uninstall allpay-redis -n allpay-dev
 ```
-
+#### QAS Environment
+```sh
+helm uninstall allpay-redis -n allpay-qas
+```
 
 
 

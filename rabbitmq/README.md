@@ -13,11 +13,19 @@ kubectl apply -f ./rabbitmq/pv-dev.yaml
 ```sh
 helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.dev.yaml -n allpay-dev
 ```
+#### QAS Environment
+```sh
+helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.qas.yaml -n allpay-qas
+```
 
 ## Uninstall RabbitMQ
 #### Dev Environment
 ```sh
 helm uninstall allpay-rabbitmq -n allpay-dev
+```
+#### QAS Environment
+```sh
+helm uninstall allpay-rabbitmq -n allpay-qas
 ```
 
 ## Post Install
