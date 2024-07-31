@@ -4,7 +4,7 @@ metadata:
   name: mssql
 spec:
   serviceName: "mssql"
-  replicas: 2 # two independent SQL Server instances to be deployed
+  replicas: 1 # two independent SQL Server instances to be deployed
   podManagementPolicy: Parallel
   selector:
     matchLabels:
