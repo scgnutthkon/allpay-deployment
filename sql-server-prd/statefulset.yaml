@@ -46,6 +46,7 @@ spec:
         resources:
           requests:
             storage: 20Gi
+        storageClassName: "allpay-mssql-storage"
 
 ---
 
