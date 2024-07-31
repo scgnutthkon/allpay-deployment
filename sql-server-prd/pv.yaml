@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 20Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: "allpay-mssql-storage"
   nfs:
     path: /mnt/data/mssql
@@ -22,7 +22,7 @@ spec:
   capacity:
     storage: 20Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: "allpay-mssql-storage"
   nfs:
     path: /mnt/data/mssql-replica
