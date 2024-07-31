@@ -39,10 +39,10 @@ spec:
               mountPath: "/var/opt/mssql"
   volumeClaimTemplates:
     - metadata:
-        name: allpay-mssql
+        name: mssql
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         resources:
           requests:
             storage: 20Gi
