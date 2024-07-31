@@ -25,7 +25,7 @@ spec:
     - ReadWriteMany
   storageClassName: "allpay-mssql-storage"
   nfs:
-    path: /mnt/data/mssql
+    path: /mnt/data/mssql-replica
     server: 10.101.3.156
 
 ---
