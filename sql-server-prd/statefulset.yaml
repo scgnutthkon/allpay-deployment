@@ -4,7 +4,7 @@ metadata:
   name: mssql
 spec:
   serviceName: "mssql"
-  replicas: 2 # two independent SQL Server instances to be deployed
+  replicas: 1 # two independent SQL Server instances to be deployed
   podManagementPolicy: Parallel
   selector:
     matchLabels:
@@ -60,5 +60,6 @@ spec:
     - port: 1433
       targetPort: 1433
       protocol: TCP
+      nodePort: 31333
   selector:
     app: mssql
