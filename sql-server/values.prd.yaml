@@ -1,0 +1,15 @@
+sa_password: "Pay@1234AB!"
+
+service:
+  type: NodePort
+  port: 1433
+
+pvc:
+ storageClass: "allpay-mssql-storage"
+ accessMode: ReadWriteOnce
+ storage: 2Gi
+
+backupPVC:
+ storageClass: "allpay-mssql-backup-storage"
+ accessMode: ReadWriteOnce
+ storage: 5Gi

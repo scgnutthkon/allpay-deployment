@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mssql-backup-scripts
-data:
-  backup.sql: |
-    BACKUP DATABASE [YourDatabaseName]
-    TO DISK = '/var/opt/mssql/backups/YourDatabaseName.bak'
-    WITH FORMAT, INIT, NAME = 'Full Backup of YourDatabaseName';

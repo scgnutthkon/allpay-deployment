@@ -1,0 +1,44 @@
+# Default values for mssql-latest.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicas: 1
+
+image:
+  repository: mcr.microsoft.com/mssql/server
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "2022-latest"
+
+ACCEPT_EULA:
+    value: "y"
+MSSQL_PID:
+    value: "Standard"
+MSSQL_AGENT_ENABLED:
+    value: "true"
+hostname: mssqllatest
+sa_password: "NhFq[oEvR0G=0JF"
+containers:
+  ports:
+      containerPort: 1433
+
+podAnnotations: {}
+
+podSecurityContext:
+   fsGroup: 10001
+
+service:
+  type: LoadBalancer
+  port: 1433
+
+pvc:
+ storageClass: "mssql-data"
+ accessMode: ReadWriteOnce
+ storage: 2Gi
+
+backupPVC:
+ storageClass: "mssql-data"
+ accessMode: ReadWriteOnce
+ storage: 5Gi
+
+

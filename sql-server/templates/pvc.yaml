@@ -1,0 +1,24 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mssql-data
+spec:
+  accessModes:
+  - {{ .Values.pvc.accessMode | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.storage}}
+  storageClassName: {{ .Values.pvc.storageClass | quote }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mssql-backup
+spec:
+  accessModes:
+  - {{ .Values.backupPVC.accessMode | quote}}
+  resources:
+    requests:
+      storage: {{ .Values.backupPVC.storage}}
+  storageClassName: {{ .Values.backupPVC.storageClass | quote }}
