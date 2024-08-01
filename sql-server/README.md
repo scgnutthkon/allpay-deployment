@@ -1,3 +1,41 @@
+# AllPay MSSQL
+Add Repository
+```sh
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+## Pre-Install
+Create PV
+```sh
+kubectl apply -f ./sql-server/pv-prd.yaml
+```
+## Install MSSQL
+#### Dev Environment
+```sh
+helm install mssql ./sql-server -f ./sql-server/values.dev.yaml -n allpay-db-dev
+```
+#### QAS Environment
+```sh
+helm install mssql ./sql-server -f ./sql-server/values.qas.yaml -n allpay-db-qas
+```
+#### Production Environment
+```sh
+helm install mssql ./sql-server -f ./sql-server/values.prd.yaml -n allpay-db
+```
+
+## Uninstall MSSQL
+#### Dev Environment
+```sh
+helm uninstall mssql -n allpay-db-dev
+```
+#### QAS Environment
+```sh
+helm uninstall mssql -n allpay-db-qas
+```
+#### Production Environment
+```sh
+helm uninstall mssql -n allpay-db
+```
+
 # Readme.md
 
 This HELM chart is a sample "as-is" chart provided for reference to help guide with SQL Server deployment on Kubernetes cluster. 
@@ -97,3 +135,6 @@ replicaset.apps/mssql-latest-deploy-645c4dddd8   1         1         1       23h
 Now you are ready to connect to the SQL Server using any of the familiar tools that you work with, like the [SSMS](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15) (SQL Server Management Studio) or [SQLCMD](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15) or [ADS](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15) (Azure Data Studio), etc. The IP address that you will use to connect is the External-IP address for the mssql-latest-deploy service which in this case is 20.44.43.212 that will be used to connect to SQL Server.
 
 For more details on the SQL Server deployment on AKS using manual method please refer [Deploy a SQL Server container in Kubernetes with Azure Kubernetes Services (AKS)](https://docs.microsoft.com/en-us/sql/linux/tutorial-sql-server-containers-kubernetes?view=sql-server-ver15).
+
+
+

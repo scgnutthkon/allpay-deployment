@@ -1,0 +1,10 @@
+global:
+  defaultStorageClass: allpay-mongodb-storage
+
+auth:
+  enabled: true
+  rootUser: root
+  rootPassword: mflv[1234
+  usernames: ["admin"]
+  passwords: ["mflv[1234"]
+  databases: ["allPay"]

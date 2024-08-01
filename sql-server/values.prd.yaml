@@ -1,15 +1,17 @@
+replicas: 1
+
 sa_password: "Pay@1234AB!"
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 1433
 
 pvc:
  storageClass: "allpay-mssql-storage"
  accessMode: ReadWriteOnce
- storage: 2Gi
+ storage: 20Gi
 
 backupPVC:
  storageClass: "allpay-mssql-backup-storage"
  accessMode: ReadWriteOnce
- storage: 5Gi
+ storage: 100Gi
