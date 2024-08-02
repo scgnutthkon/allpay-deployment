@@ -13,5 +13,5 @@ volumeMounts:
   mountPath: "/mnt/data"
 
 env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Qas
+- name: ASPNETCORE_ENVIRONMENT
+  value: Qas

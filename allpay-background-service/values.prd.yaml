@@ -13,5 +13,14 @@ volumeMounts:
   mountPath: "/mnt/data"
 
 env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Production
+- name: ASPNETCORE_ENVIRONMENT
+  value: Production
+
+nodeSelector:
+  name: worker-02
+
+resources:
+  requests:
+    cpu: 2
+    memory: 4Gi
+  limits: {}

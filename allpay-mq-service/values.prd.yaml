@@ -13,5 +13,11 @@ volumeMounts:
   mountPath: "/mnt/data"
 
 env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Production
+- name: ASPNETCORE_ENVIRONMENT
+  value: Production
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
