@@ -9,5 +9,5 @@ spec:
     - ReadWriteOnce
   storageClassName: "allpay-mongodb-storage"
   nfs:
-    path: /mnt/data/mongodb
+    path: /var/nfs/allpay-mongodb
     server: 10.101.3.156
