@@ -42,9 +42,6 @@ pipeline {
                 script {
                     sh 'echo Update version...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-                        sh '''
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-mq-service -n allpay-dev'
-                        '''
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
                             kubectl set image deployment allpay-mq-service allpay-mq-service=allpay-registry.scg.com/allpay-mq-service:${TAG_NAME} -n allpay-qas && 
