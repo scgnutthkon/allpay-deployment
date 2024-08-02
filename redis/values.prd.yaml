@@ -1,0 +1,6 @@
+global:
+  storageClass: allpay-redis-storage
+  redis:
+    password: mflv[1234
+
+architecture: standalone

@@ -42,6 +42,11 @@ helm install allpay-web ./allpay-web -f ./allpay-web/values.dev.yaml -n allpay-d
 ```bash
 helm install allpay-web ./allpay-web -f ./allpay-web/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm install allpay-web ./allpay-web -f ./allpay-web/values.prd.yaml -n allpay-prd
+```
 
 The command deploys the AllPay Web on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -59,6 +64,11 @@ helm upgrade allpay-web ./allpay-web -f ./allpay-web/values.dev.yaml -n allpay-d
 ```bash
 helm upgrade allpay-web ./allpay-web -f ./allpay-web/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm upgrade allpay-web ./allpay-web -f ./allpay-web/values.prd.yaml -n allpay
+```
 
 The command upgrade the AllPay Web on the Kubernetes cluster.
 
@@ -75,6 +85,11 @@ helm uninstall allpay-web -n allpay-dev
 
 ```bash
 helm uninstall allpay-web -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm uninstall allpay-web -n allpay
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

@@ -42,6 +42,11 @@ helm install allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values
 ```bash
 helm install allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm install allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.prd.yaml -n allpay
+```
 
 The command deploys the AllPay MQ Service on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -57,7 +62,12 @@ helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values
 #### Environment QAS
 
 ```bash
-helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.dev.yaml -n allpay-qas
+helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.qas.yaml -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.prd.yaml -n allpay
 ```
 
 The command upgrade the AllPay MQ Service on the Kubernetes cluster.
@@ -75,6 +85,11 @@ helm uninstall allpay-mq-service -n allpay-dev
 
 ```bash
 helm uninstall allpay-mq-service -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm uninstall allpay-mq-service -n allpay
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

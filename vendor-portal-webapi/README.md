@@ -42,6 +42,11 @@ helm install vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-weba
 ```bash
 helm install vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-webapi/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm install vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-webapi/values.prd.yaml -n allpay
+```
 
 The command deploys the Vendor Portal Web API on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -59,6 +64,11 @@ helm upgrade vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-weba
 ```bash
 helm upgrade vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-webapi/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm upgrade vendor-portal-webapi ./vendor-portal-webapi -f ./vendor-portal-webapi/values.prd.yaml -n allpay
+```
 
 The command upgrade the Vendor Portal Web API on the Kubernetes cluster.
 
@@ -75,6 +85,11 @@ helm uninstall vendor-portal-webapi -n allpay-dev
 
 ```bash
 helm uninstall vendor-portal-webapi -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm uninstall vendor-portal-webapi -n allpay
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

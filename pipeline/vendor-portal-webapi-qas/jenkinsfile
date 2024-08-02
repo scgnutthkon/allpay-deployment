@@ -43,9 +43,7 @@ pipeline {
                 script {
                     sh 'echo Restarting deployment...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-                        sh '''
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment vendor-portal-webapi -n allpay-dev'
-                        '''
+
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
                             kubectl set image deployment vendor-portal-webapi vendor-portal-webapi=allpay-registry.scg.com/vendor-portal-webapi:${TAG_NAME} -n allpay-qas && 

@@ -1,5 +1,5 @@
 image:
-  repository: allpay-registry.scg.com/allpay-web-qas
+  repository: allpay-registry.scg.com/allpay-web-prd
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -16,7 +16,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: allpay-vendor-qas.scg.com
+    - host: allpay-vendor.scg.com
       paths:
         - path: /
           pathType: ImplementationSpecific

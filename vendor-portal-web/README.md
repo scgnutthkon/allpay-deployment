@@ -59,6 +59,11 @@ helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values
 ```bash
 helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.prd.yaml -n allpay-prd
+```
 
 The command upgrade the Vendor Portal Web on the Kubernetes cluster.
 
@@ -74,7 +79,12 @@ helm uninstall vendor-portal-web -n allpay-dev
 #### Environment QAS
 
 ```bash
-helm uninstall vendor-portal-qas -n allpay-qas
+helm uninstall vendor-portal-web -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm uninstall vendor-portal-web -n allpay
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

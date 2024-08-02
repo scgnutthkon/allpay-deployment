@@ -14,9 +14,8 @@ pipeline {
                 script {
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
-                        url: 'https://github.com/CADGithubMGR/AllPayVendorBackgroundService.git'
+                        url: 'https://github.com/CADGithubMGR/AllPayVendorWeb.git'
 
-                    // Get the latest tag
                     TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
 
                     
@@ -33,20 +32,22 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh "docker build -t localhost:5000/allpay-background-service:${TAG_NAME} -f AllPayBackgroundService/Dockerfile ."
-                sh "docker push localhost:5000/allpay-background-service:${TAG_NAME}"
+                sh 'export HTTP_PROXY=http://10.100.12.240:6969/'
+                sh 'export HTTPS_PROXY=http://10.100.12.240:6969/'
+                sh 'export NO_PROXY=127.*,10.100.*'
+                sh "docker build -t localhost:5000/allpay-web-prd:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
+                sh "docker push localhost:5000/allpay-web-prd:${TAG_NAME}"
             }
         }
         stage('Deploy') {
             steps {
                 script {
                     sh 'echo Restarting deployment...'
-                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_SCCBSAPVPR1_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment allpay-background-service allpay-background-service=allpay-registry.scg.com/allpay-background-service:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment allpay-background-service -n allpay-qas'
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
+                            kubectl set image deployment allpay-web allpay-web=allpay-registry.scg.com/allpay-web-prd:${TAG_NAME} -n allpay && 
+                            kubectl rollout restart deployment allpay-web -n allpay'
                         """
                     }
                 }

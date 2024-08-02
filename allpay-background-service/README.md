@@ -42,6 +42,11 @@ helm install allpay-background-service ./allpay-background-service -f ./allpay-b
 ```bash
 helm install allpay-background-service ./allpay-background-service -f ./allpay-background-service/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm install allpay-background-service ./allpay-background-service -f ./allpay-background-service/values.prd.yaml -n allpay
+```
 
 The command deploys the AllPay Background Service on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
@@ -59,6 +64,11 @@ helm upgrade allpay-background-service ./allpay-background-service -f ./allpay-b
 ```bash
 helm upgrade allpay-background-service ./allpay-background-service -f ./allpay-background-service/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm upgrade allpay-background-service ./allpay-background-service -f ./allpay-background-service/values.prd.yaml -n allpay
+```
 
 The command upgrade the AllPay Background Service on the Kubernetes cluster.
 
@@ -75,6 +85,11 @@ helm uninstall allpay-background-service -n allpay-dev
 
 ```bash
 helm uninstall allpay-background-service -n allpay-qas
+```
+#### Environment Production
+
+```bash
+helm uninstall allpay-background-service -n allpay
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
