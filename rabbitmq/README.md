@@ -17,6 +17,10 @@ helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.dev.yaml -n a
 ```sh
 helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.qas.yaml -n allpay-qas
 ```
+#### Production Environment
+```sh
+helm install allpay-rabbitmq bitnami/rabbitmq -f ./rabbitmq/values.prd.yaml -n allpay
+```
 
 ## Uninstall RabbitMQ
 #### Dev Environment
@@ -26,6 +30,10 @@ helm uninstall allpay-rabbitmq -n allpay-dev
 #### QAS Environment
 ```sh
 helm uninstall allpay-rabbitmq -n allpay-qas
+```
+#### Production Environment
+```sh
+helm uninstall allpay-rabbitmq -n allpay
 ```
 
 ## Post Install
