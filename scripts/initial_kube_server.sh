@@ -45,6 +45,7 @@ sudo usermod -aG docker $USER
 ##Modify contained config
 sudo containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/g' > config.toml
 sudo cp config.toml
+sudo cp config.toml /etc/containerd
 
 ###Disable Linux swap
 sudo sed -i s/'^ *\/swap'/'#\/swap'/g /etc/fstab
