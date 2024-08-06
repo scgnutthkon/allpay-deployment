@@ -9,7 +9,7 @@ export https_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
 export ftp_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
 export no_proxy=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 
-sudo cat << EOF > /etc/apt/apt.conf.d/proxy.conf
+sudo cat << EOF | sudo tee /etc/apt/apt.conf.d/proxy.conf
 Acquire::http::Proxy "http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/";
 Acquire::https::Proxy "http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/";
 EOF
