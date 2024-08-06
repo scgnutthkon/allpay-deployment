@@ -4,10 +4,12 @@ cd ~
 ##Config apt proxy
 
 # Proxy Env
+
 export http_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
 export https_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
 export ftp_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
 export no_proxy=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+
 
 sudo cat << EOF | sudo tee /etc/apt/apt.conf.d/proxy.conf
 Acquire::http::Proxy "http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/";
@@ -26,7 +28,7 @@ echo 'Installing Docker.................'
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add the repository to Apt sources:
