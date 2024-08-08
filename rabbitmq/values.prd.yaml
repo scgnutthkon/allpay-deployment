@@ -13,5 +13,5 @@ hostAliases:
   hostnames:
   - kubernetes.default
 
-containerSecurityContext:
-  runAsUser: 0
+# containerSecurityContext:
+#   runAsUser: 0
