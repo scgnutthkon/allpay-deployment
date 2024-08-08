@@ -45,7 +45,7 @@ RUN usermod -aG systemd-journal jenkins
 COPY patch/patch_agent.sh /root
 
 RUN chown root /root/patch_agent.sh
-RUN chown 744 /root/patch_agent.sh
+RUN chmod 744 /root/patch_agent.sh
 
 RUN bash -c /root/patch_agent.sh
 
