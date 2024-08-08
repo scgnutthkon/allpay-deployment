@@ -42,6 +42,11 @@ helm install vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values
 ```bash
 helm install vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.qas.yaml -n allpay-qas
 ```
+#### Environment Production
+
+```bash
+helm install vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.prd.yaml -n allpay
+```
 
 The command deploys the Vendor Portal Web on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 

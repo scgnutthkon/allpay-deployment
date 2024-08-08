@@ -16,8 +16,8 @@ env:
 - name: ASPNETCORE_ENVIRONMENT
   value: Production
 
-nodeSelector:
-  kubernetes.io/hostname: worker-02
+# nodeSelector:
+#   kubernetes.io/hostname: worker-02
 
 resources:
   requests:

@@ -74,7 +74,7 @@ cat << EOF > http-proxy.conf
 [Service]
 Environment="HTTP_PROXY=http://CADAllpayVendor03:Avd%%40%%400313579@proxy-server.scg.com:3128/"
 Environment="HTTPS_PROXY=http://CADAllpayVendor03:Avd%%40%%400313579@proxy-server.scg.com:3128/"
-Environment="NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,10.100.12.93/24"
+Environment="NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,10.100.12.93,10.100.12.94,*.scg.com"
 EOF
 
 sudo mkdir -p /etc/systemd/system/docker.service.d

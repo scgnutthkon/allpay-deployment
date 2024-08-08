@@ -45,7 +45,7 @@ helm install allpay-web ./allpay-web -f ./allpay-web/values.qas.yaml -n allpay-q
 #### Environment Production
 
 ```bash
-helm install allpay-web ./allpay-web -f ./allpay-web/values.prd.yaml -n allpay-prd
+helm install allpay-web ./allpay-web -f ./allpay-web/values.prd.yaml -n allpay
 ```
 
 The command deploys the AllPay Web on the Kubernetes cluster. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
