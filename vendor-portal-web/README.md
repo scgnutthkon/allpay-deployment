@@ -67,7 +67,7 @@ helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values
 #### Environment Production
 
 ```bash
-helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.prd.yaml -n allpay-prd
+helm upgrade vendor-portal-web ./vendor-portal-web -f ./vendor-portal-web/values.prd.yaml -n allpay
 ```
 
 The command upgrade the Vendor Portal Web on the Kubernetes cluster.

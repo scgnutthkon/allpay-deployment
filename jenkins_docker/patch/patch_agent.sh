@@ -1,7 +1,7 @@
 echo "Creating config /etc/systemd/system/docker.service.d/http-proxy.conf"
 #proxyUrl="http://10.100.12.240:6969/"
 proxyUrl="http://CADAllpayVendor02:Avd%40%400213579@proxy-server.scg.com:3128/"
-proxyEsp=(echo $proxyUrl | sed s/%/%%/g)
+proxyEsp=$(echo $proxyUrl | sed s/%/%%/g)
 
 if [ ! -d "/etc/systemd/system/docker.service.d" ]; then
     mkdir "/etc/systemd/system/docker.service.d"
