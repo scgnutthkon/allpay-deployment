@@ -7,11 +7,13 @@ architecture: replication
 primary:
   name: primary
   persistence: allpay-postgresql-storage
+  mountPath: /var/lib/postgresql
 
 readReplicas:
   name: secondary
   replicaCount: 1
   persistence: allpay-postgresql-replica-storage
+  mountPath: /var/lib/postgresql
 
 replication:
   numSynchronousReplicas: 1
