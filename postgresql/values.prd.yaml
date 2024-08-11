@@ -3,6 +3,7 @@ global:
     auth:
       postgresPassword: "Pay@1234AB!"
 
+postgresqlDataDir: /var/lib/postgresql/data
 architecture: replication
 primary:
   name: primary
