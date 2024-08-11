@@ -1,0 +1,5 @@
+global:
+  defaultStorageClass: allpay-postgresql-storage
+  postgresql:
+    auth:
+      postgresPassword: "Pay@1234AB!"
