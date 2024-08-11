@@ -11,3 +11,17 @@ spec:
   nfs:
     path: /var/nfs/allpay-postgresql
     server: 10.101.3.156
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: allpay-postgresql-replica
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "allpay-postgresql-replica-storage"
+  nfs:
+    path: /var/nfs/allpay-postgresql-replica
+    server: 10.101.3.156

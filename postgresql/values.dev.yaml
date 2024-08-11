@@ -1,5 +1,17 @@
 global:
-  defaultStorageClass: allpay-postgresql-storage
   postgresql:
     auth:
       postgresPassword: "Pay@1234AB!"
+
+architecture: replication
+primary:
+  name: primary
+  persistence: allpay-postgresql-storage
+
+readReplicas:
+  name: secondary
+  replicaCount: 1
+  persistence: allpay-postgresql-replica-storage
+
+replication:
+  numSynchronousReplicas: 1
