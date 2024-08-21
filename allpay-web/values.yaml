@@ -47,6 +47,7 @@ ingress:
   enabled: false
   className: "nginx"
   annotations:
+    nginx.org/websocket-services: "allpay-web"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
     nginx.ingress.kubernetes.io/enable-websocket: "true"
     nginx.ingress.kubernetes.io/affinity: "cookie"
