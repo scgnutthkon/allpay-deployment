@@ -5,15 +5,19 @@ cd ~
 
 # Proxy Env
 
-export http_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
-export https_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
-export ftp_proxy="http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/"
+#proxyUrl="http://10.100.12.240:6969/"
+proxyUrl="http://CADAllpayVendor05:Avd%40%400513579@proxy-server.scg.com:3128/"
+proxyEsp=$(echo $proxyUrl | sed s/%/%%/g)
+
+export http_proxy="$proxyUrl"
+export https_proxy="$proxyUrl"
+export ftp_proxy="$proxyUrl"
 export no_proxy=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 
 
 sudo cat << EOF | sudo tee /etc/apt/apt.conf.d/proxy.conf
-Acquire::http::Proxy "http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/";
-Acquire::https::Proxy "http://CADAllpayVendor03:Avd%40%400313579@172.30.1.22:3128/";
+Acquire::http::Proxy "$proxyUrl";
+Acquire::https::Proxy "$proxyUrl";
 EOF
 
 ##Upgrade packages
@@ -72,8 +76,8 @@ sudo apt-get install -y kubectl kubelet kubeadm
 #### add proxy config to services
 cat << EOF > http-proxy.conf
 [Service]
-Environment="HTTP_PROXY=http://CADAllpayVendor03:Avd%%40%%400313579@proxy-server.scg.com:3128/"
-Environment="HTTPS_PROXY=http://CADAllpayVendor03:Avd%%40%%400313579@proxy-server.scg.com:3128/"
+Environment="HTTP_PROXY=$proxyEsp"
+Environment="HTTPS_PROXY=$proxyEsp"
 Environment="NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,10.100.12.93,10.100.12.94,*.scg.com"
 EOF
 
