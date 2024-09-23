@@ -19,6 +19,6 @@ backup:
     - |
       "mongodump --username=${MONGODB_ROOT_USER} --password=${MONGODB_ROOT_PASSWORD} --authenticationDatabase=admin --host=${MONGODB_SERVICE_NAME} --port=${MONGODB_PORT_NUMBER} ${MONGODB_CLIENT_EXTRA_FLAGS} --db=allpay --gzip --archive=${MONGODUMP_DIR}/allpay-$(date '+%Y%m%d%H%M').gz &&"
       "mongodump --username=${MONGODB_ROOT_USER} --password=${MONGODB_ROOT_PASSWORD} --authenticationDatabase=admin --host=${MONGODB_SERVICE_NAME} --port=${MONGODB_PORT_NUMBER} ${MONGODB_CLIENT_EXTRA_FLAGS} --db=vendorPortal --gzip --archive=${MONGODUMP_DIR}/vendorPortal-$(date '+%Y%m%d%H%M').gz &&"
-      "find ${MONGODUMP_DIR}/*.gz -type f -name *.gz -mtime +30 -exec rm {} \;"
+      "find ${MONGODUMP_DIR}/ -type f -name *.gz -mtime +30 -exec rm {} \;"
     storage:
       storageClass: allpay-mongodb-backup-storage
