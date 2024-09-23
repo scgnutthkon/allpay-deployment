@@ -11,3 +11,17 @@ spec:
   nfs:
     path: /var/nfs/allpay-mongodb
     server: 10.101.3.156
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: allpay-mongodb-backup
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "allpay-mongodb-backup-storage"
+  nfs:
+    path: /var/nfs/allpay-mongodb-backup
+    server: 10.101.3.156

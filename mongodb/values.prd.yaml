@@ -5,6 +5,19 @@ auth:
   enabled: true
   rootUser: root
   rootPassword: mflv[1234
-  usernames: ["admin"]
-  passwords: ["mflv[1234"]
-  databases: ["allPay"]
+  usernames: ["admin", "admin"]
+  passwords: ["mflv[1234", "mflv[1234"]
+  databases: ["allPay", "vendorPortal"]
+
+backup:
+  enabled: true
+  cronjob:
+    schedule: "0 1 * * *"
+    command:
+    - /bin/bash
+    - "-c"
+    - |
+      "mongodump --username=${MONGODB_ROOT_USER} --password=${MONGODB_ROOT_PASSWORD} --authenticationDatabase=admin --host=${MONGODB_SERVICE_NAME} --port=${MONGODB_PORT_NUMBER} ${MONGODB_CLIENT_EXTRA_FLAGS} --db=allpay --gzip --archive=${MONGODUMP_DIR}/allpay-$(date '+%Y%m%d%H%M').gz &&"
+      "mongodump --username=${MONGODB_ROOT_USER} --password=${MONGODB_ROOT_PASSWORD} --authenticationDatabase=admin --host=${MONGODB_SERVICE_NAME} --port=${MONGODB_PORT_NUMBER} ${MONGODB_CLIENT_EXTRA_FLAGS} --db=vendorPortal --gzip --archive=${MONGODUMP_DIR}/vendorPortal-$(date '+%Y%m%d%H%M').gz"
+    storage:
+      storageClass: allpay-mongodb-backup-storage
