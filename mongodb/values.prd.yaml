@@ -32,11 +32,12 @@ backup:
       find ${MONGODUMP_DIR}/ -type f -name *.gz -mtime +30 -exec rm {} \;
     storage:
       storageClass: allpay-mongodb-backup-storage
-    limits:
-      memory: "2Gi"
-      cpu: "2"
-      ephemeral-storage: "1Gi"
-    requests:
-      memory: "128Mi"
-      cpu: "100m"
-      ephemeral-storage: "50Mi"
+    resources:
+      limits:
+        memory: "2Gi"
+        cpu: "2"
+        ephemeral-storage: "1Gi"
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+        ephemeral-storage: "50Mi"

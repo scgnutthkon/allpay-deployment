@@ -43,6 +43,7 @@ backup:
   enabled: true
   cronjob:
     schedule: "0 1 * * *"
+    timezone: "Asia/Bangkok"
     command:
     - /bin/bash
     - "-c"
@@ -54,11 +55,11 @@ backup:
     storage:
       storageClass: allpay-postgresql-backup-storage
     resources:
-    limits:
-      memory: "2Gi"
-      cpu: "2"
-      ephemeral-storage: "1Gi"
-    requests:
-      memory: "128Mi"
-      cpu: "100m"
-      ephemeral-storage: "50Mi"
+      limits:
+        memory: "2Gi"
+        cpu: "2"
+        ephemeral-storage: "1Gi"
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+        ephemeral-storage: "50Mi"
