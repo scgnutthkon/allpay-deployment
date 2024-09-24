@@ -34,7 +34,7 @@ backup:
       storageClass: allpay-mongodb-backup-storage
     resources:
       limits:
-        memory: "2Gi"
+        memory: "4Gi"
         cpu: "2"
         ephemeral-storage: "1Gi"
       requests:
