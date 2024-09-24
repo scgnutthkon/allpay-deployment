@@ -23,5 +23,5 @@ helm uninstall elasticsearch -n elk
 ### APIs Command
 Get service token
 ```sh
-curl -k -u username:pass -X POST "https://localhost:9200/_security/service/elastic/kibana/credential/token" -H "Content-Type: application/json"
+curl -k -u elastic:Pluto@2024 -X POST "https://localhost:9200/_security/service/elastic/kibana/credential/token" -H "Content-Type: application/json"
 ```

@@ -35,5 +35,8 @@ helm uninstall mongodb -n allpay-db-qas
 ```sh
 helm uninstall mongodb -n allpay-db
 ```
-
+#### Patch Cronjob TimeZone (Run after install or upgrade)
+```sh
+kubectl patch cronjob mongodb-mongodump -n allpay-db -p '{"spec": {"timeZone": "Asia/Bangkok"}}'
+```
 

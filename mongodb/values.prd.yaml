@@ -13,6 +13,7 @@ backup:
   enabled: true
   cronjob:
     schedule: "0 1 * * *"
+    timezone: "Asia/Bangkok"
     command:
     - /bin/bash
     - "-c"

@@ -25,7 +25,7 @@ kubectl create namespace allpay-dev
 # Create PV
 kubectl apply -f ./allpay-pv/allpay-dev-pv.yaml
 # Create PVC
-kubectl apply -f ./allpay-pv/allpay-dev-pv.yaml
+kubectl apply -f ./allpay-pv/allpay-dev-pvc.yaml -n allpay-dev
 ```
 
 ## Installation

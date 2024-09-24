@@ -62,7 +62,7 @@ sudo sed -i s/'^ *\/swap'/'#\/swap'/g /etc/fstab
 echo 'Installing Kubernates.................'
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
 
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # allow unprivileged APT programs to read this keyring
 
 # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list

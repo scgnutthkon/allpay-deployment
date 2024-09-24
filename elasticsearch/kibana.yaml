@@ -26,7 +26,7 @@ extraEnvs:
   # - name: ELASTICSEARCH_PASSWORD
   #   value: "Chni8Rz4cRZ51Ax4"
   - name: ELASTICSEARCH_SERVICEACCOUNTTOKEN
-    value: "AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1raWJhbmE6Si1EYWdtb2VRNWE3UEotcGhTUW1UZw"
+    value: "AAEAAWVsYXN0aWMva2liYW5hL3Rva2VuX05kNEFJSklCdjNQR3R2bnlfWXMtOnJsQ25UVlQzU28teHRaRzRmdUNVb1E"
   - name: server.publicBaseUrl
     value: "https://allpay-elk.scg.com"
 
