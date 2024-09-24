@@ -36,4 +36,19 @@ helm uninstall postgresql -n allpay-db-qas
 helm uninstall postgresql -n allpay-db
 ```
 
+#### Patch CronJob (Backup) TimeZone (Run after install or upgrade)
+```sh
+kubectl patch cronjob postgresql-primary-pgdumpall -n allpay-db -p '{"spec": {"timeZone": "Asia/Bangkok"}}'
+```
+
+#### Disable CronJob (Backup)
+```sh
+kubectl patch cronjob postgresql-primary-pgdumpall -n allpay-db -p '{"spec": {"suspend": true}}'
+```
+
+#### Enable CronJob (Backup)
+```sh
+kubectl patch cronjob postgresql-primary-pgdumpall -n allpay-db -p '{"spec": {"suspend": false}}'
+```
+
 
