@@ -10,6 +10,13 @@ primary:
   persistence: 
     storageClass: allpay-postgresql-storage
     mountPath: /var/lib/postgresql
+  resources:
+    limits:
+      memory: "10Gi"
+      cpu: "10"
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
 
 readReplicas:
   name: secondary
@@ -17,6 +24,13 @@ readReplicas:
   persistence: 
     storageClass: allpay-postgresql-replica-storage
     mountPath: /var/lib/postgresql
+  resources:
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
 
 replication:
   numSynchronousReplicas: 1
