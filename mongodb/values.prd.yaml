@@ -1,6 +1,16 @@
 global:
   defaultStorageClass: allpay-mongodb-storage
 
+resources:
+  limits:
+    memory: "4Gi"
+    cpu: "4"
+    ephemeral-storage: "2Gi"
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+    ephemeral-storage: "50Mi"
+
 auth:
   enabled: true
   rootUser: root

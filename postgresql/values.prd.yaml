@@ -14,9 +14,11 @@ primary:
     limits:
       memory: "10Gi"
       cpu: "10"
+      ephemeral-storage: "2Gi"
     requests:
       memory: "128Mi"
       cpu: "100m"
+      ephemeral-storage: "50Mi"
 
 readReplicas:
   name: secondary
@@ -28,9 +30,26 @@ readReplicas:
     limits:
       memory: "2Gi"
       cpu: "2"
+      ephemeral-storage: "1Gi"
     requests:
       memory: "128Mi"
       cpu: "100m"
+      ephemeral-storage: "50Mi"
 
 replication:
   numSynchronousReplicas: 1
+
+backup:
+  enabled: true
+  cronjob:
+    schedule: "0 1 * * *"
+    command:
+    - /bin/bash
+    - "-c"
+    - |
+      pg_dump --clean --if-exists --load-via-partition-root --quote-all-identifiers share_master | gzip > ${PGDUMP_DIR}/share_master-$(TZ="Asia/Bangkok" date '+%Y%m%d%H%M').sql.gz &&
+      pg_dump --clean --if-exists --load-via-partition-root --quote-all-identifiers allpay_vendor | gzip > ${PGDUMP_DIR}/allpay_vendor-$(TZ="Asia/Bangkok" date '+%Y%m%d%H%M').sql.gz &&
+      pg_dump --clean --if-exists --load-via-partition-root --quote-all-identifiers vendor_portal | gzip > ${PGDUMP_DIR}/vendor_portal-$(TZ="Asia/Bangkok" date '+%Y%m%d%H%M').sql.gz &&
+      find ${MONGODUMP_DIR}/ -type f -name *.gz -mtime +30 -exec rm {} \;
+    storage:
+      storageClass: allpay-postgresql-backup-storage
