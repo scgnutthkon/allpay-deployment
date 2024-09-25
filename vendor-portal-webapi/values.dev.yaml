@@ -19,6 +19,13 @@ ingress:
     #   hosts:
     #     - vendor-portal-api-dev.scg.com
 
+# Additional volumes on the output Deployment definition.
+volumes:
+- name: allpay-storage
+  persistentVolumeClaim:
+    claimName: allpay-dev-storage
+
+# Additional volumeMounts on the output Deployment definition.
 volumeMounts:
 - name: allpay-storage
   mountPath: "/mnt/data"

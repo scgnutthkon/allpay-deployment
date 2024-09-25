@@ -23,6 +23,13 @@ env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Production
 
+# Additional volumes on the output Deployment definition.
+volumes:
+- name: allpay-storage
+  persistentVolumeClaim:
+    claimName: allpay-storage
+
+# Additional volumeMounts on the output Deployment definition.
 volumeMounts:
 - name: allpay-storage
   mountPath: "/mnt/data"
