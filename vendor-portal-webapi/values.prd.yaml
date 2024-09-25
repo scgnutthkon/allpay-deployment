@@ -23,6 +23,10 @@ env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Production
 
+volumeMounts:
+- name: allpay-storage
+  mountPath: "/mnt/data"
+
 autoscaling:
   enabled: true
   minReplicas: 2

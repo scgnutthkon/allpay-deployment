@@ -19,6 +19,10 @@ ingress:
     #   hosts:
     #     - vendor-portal-api-dev.scg.com
 
+volumeMounts:
+- name: allpay-storage
+  mountPath: "/mnt/data"
+
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Dev
