@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   chartmuseum:
+    container_name: chartmuseum
     image: chartmuseum/chartmuseum:latest
     ports:
       - "8082:8080" # Expose port 8080
@@ -12,6 +13,7 @@ services:
     volumes:
       - /data/charts:/data # Bind mount the local 'charts' directory
   ui:
+     container_name: chartmuseum-ui
      image: idobry/chartmuseumui:latest
      environment:
       CHART_MUSEUM_URL: "https://allpay-charts.scg.com/repositories"
