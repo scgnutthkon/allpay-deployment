@@ -62,12 +62,12 @@ helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values
 #### Environment QAS
 
 ```bash
-helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.qas.yaml -n allpay-qas
+helm upgrade allpay-mq-service allpay-charts/allpay-mq-service -f ~/deployment/allpay-mq-service/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify
 ```
 #### Environment Production
 
 ```bash
-helm upgrade allpay-mq-service ./allpay-mq-service -f ./allpay-mq-service/values.prd.yaml -n allpay
+helm upgrade allpay-mq-service allpay-charts/allpay-mq-service -f ~/deployment/allpay-mq-service/values.prd.yaml -n allpay --insecure-skip-tls-verify
 ```
 
 The command upgrade the AllPay MQ Service on the Kubernetes cluster.
