@@ -132,7 +132,7 @@ persistence:
   size: 4Gi
   annotations: {}
   labels: {}
-  mountPath: "/app/data"
 
-configuration: {}
+configuration:
+  trustUserCode: true
 

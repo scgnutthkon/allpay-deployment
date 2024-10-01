@@ -1,19 +1,16 @@
 
-{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) (not (eq .Values.architecture "replicaset")) (not .Values.useStatefulSet) }}
+
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "jsreport.fullname" . }}
+  name: {{ include "jsreport.fullname" . }}-data
   namespace: {{ include "jsreport.namespace" . | quote }}
-  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  labels:
     app.kubernetes.io/component: jsreport
   annotations:
     {{- if .Values.persistence.resourcePolicy }}
     helm.sh/resource-policy: {{ .Values.persistence.resourcePolicy | quote }}
-    {{- end }}
-    {{- if or .Values.persistence.annotations .Values.commonAnnotations }}
-    {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.persistence.annotations .Values.commonAnnotations ) "context" . ) }}
-    {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $ ) | nindent 4 }}
     {{- end }}
 spec:
   accessModes:
@@ -23,5 +20,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size | quote }}
-  {{ include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) }}
+  {{- if .Values.persistence.storageClass }}
+  storageClass: {{ .Values.persistence.storageClass | quote }}
+  {{- end }}
 {{- end }}

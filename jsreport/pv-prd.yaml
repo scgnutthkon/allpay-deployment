@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jsreport-data
+spec:
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "jsreport-data"
+  nfs:
+    path: /var/nfs/jsreport-data
+    server: 10.101.3.153

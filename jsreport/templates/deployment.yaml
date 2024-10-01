@@ -46,14 +46,33 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            {{- if .Values.configuration }}
+            - name: config
+              mountPath: /app/jsreport.config.json
+              subPath: jsreport.config.json
+            {{- end }}
+            {{- if .Values.persistence.enabled }}
+            - name: datadir
+              mountPath: /app/data
+              subPath: ""
+            {{- end }}
+            {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            {{- end }}
+      
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: config
+          configMap:
+            name: {{ include "jsreport.fullname" . }}-config
+        {{- if .Values.persistence.enabled }}
+        - name: datadir
+          persistentVolumeClaim:
+            claimName: {{ include "jsreport.fullname" . }}-data
+        {{- end }}
+        {{- with .Values.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
