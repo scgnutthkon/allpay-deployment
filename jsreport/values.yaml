@@ -133,6 +133,5 @@ persistence:
   annotations: {}
   labels: {}
 
-configuration:
-  trustUserCode: true
+configuration: {}
 
