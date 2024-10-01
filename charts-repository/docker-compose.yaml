@@ -14,7 +14,7 @@ services:
      container_name: chartmuseum-ui
      image: idobry/chartmuseumui:latest
      environment:
-      CHART_MUSEUM_URL: "https://allpay-charts.scg.com/repositories"
+      CHART_MUSEUM_URL: "http://chartmuseum:8080"
       # BASIC_AUTH_USERS: '[{"username":"admin", "password":"Pluto@2024"}]'
      ports:
       - 8084:8080
