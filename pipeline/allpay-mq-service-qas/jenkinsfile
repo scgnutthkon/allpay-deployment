@@ -47,7 +47,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            helm upgrade allpay-mq-service allpay-charts/allpay-mq-service -f ~/deployment/allpay-mq-service/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
+                            helm upgrade allpay-mq-service allpay-charts/allpay-mq-service --version ${TAG_NAME} -f ~/deployment/allpay-mq-service/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
                         """
                     }
                 }

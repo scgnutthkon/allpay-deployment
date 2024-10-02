@@ -11,6 +11,7 @@ pipeline {
                 label 'agent1'
             }
             steps {
+                sh 'bash ~/prepare_pipeline.sh'
                 script {
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
@@ -42,11 +43,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'echo Update version...'
+                    sh 'echo Upgrade deployment...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
-                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment allpay-webapi allpay-webapi=allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -n allpay-qas && 
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl set image deployment allpay-webapi allpay-webapi=allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -n allpay-qas && 
                             kubectl rollout restart deployment allpay-webapi -n allpay-qas'
                         """
                     }

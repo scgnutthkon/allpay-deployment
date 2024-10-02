@@ -8,6 +8,7 @@ pipeline {
             }
             steps {
                 script {
+                    sh 'bash ~/prepare_pipeline.sh'
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
                         url: 'https://github.com/CADGithubMGR/AllpayMQWorker.git'

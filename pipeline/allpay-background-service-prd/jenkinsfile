@@ -11,6 +11,7 @@ pipeline {
                 label 'agent1'
             }
             steps {
+                sh 'bash ~/prepare_pipeline.sh'
                 script {
                     git branch: 'main',
                         credentialsId: 'scgnutthkon_github',
