@@ -34,8 +34,10 @@ pipeline {
             steps {
                 unstash 'project_source'
                 sh 'ls -al'
-                sh "docker build -t localhost:5000/vendor-portal-web-qas:${TAG_NAME} --build-arg='BUILD_ENV=qas' -f Dockerfile ."
-                sh "docker push localhost:5000/vendor-portal-web-qas:${TAG_NAME}"
+                sh "docker build -t localhost:5000/vendor-portal-web:${TAG_NAME}-qas --build-arg='BUILD_ENV=qas' -f Dockerfile ."
+                sh "docker push localhost:5000/vendor-portal-web:${TAG_NAME}-qas"
+                sh "helm package --app-version ${TAG_NAME}-qas --version ${TAG_NAME}-qas ./.charts"
+                sh "helm cm-push vendor-portal-web-${TAG_NAME}-qas.tgz allpay-charts -f"
             }
         }
         stage('Deploy') {
@@ -46,8 +48,7 @@ pipeline {
 
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment vendor-portal-web vendor-portal-web=allpay-registry.scg.com/vendor-portal-web-qas:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment vendor-portal-web -n allpay-qas'
+                            helm upgrade vendor-portal-web allpay-charts/vendor-portal-web --version ${TAG_NAME}-qas -f ~/deployment/vendor-portal-web/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
                         """
                     }
                 }

@@ -34,8 +34,10 @@ pipeline {
             steps {
                 unstash 'project_source'
                 sh 'ls -al'
-                sh "docker build -t localhost:5000/vendor-portal-web-prd:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
-                sh "docker push localhost:5000/vendor-portal-web-prd:${TAG_NAME}"
+                sh "docker build -t localhost:5000/vendor-portal-web:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
+                sh "docker push localhost:5000/vendor-portal-web:${TAG_NAME}"
+                sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
+                sh "helm cm-push vendor-portal-web-${TAG_NAME}.tgz allpay-charts -f"
             }
         }
         stage('Deploy') {
@@ -46,8 +48,7 @@ pipeline {
 
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
-                            kubectl set image deployment vendor-portal-web vendor-portal-web=allpay-registry.scg.com/vendor-portal-web-prd:${TAG_NAME} -n allpay && 
-                            kubectl rollout restart deployment vendor-portal-web -n allpay'
+                            helm upgrade vendor-portal-web allpay-charts/vendor-portal-web --version ${TAG_NAME} -f ~/deployment/vendor-portal-web/values.prd.yaml -n allpay --insecure-skip-tls-verify'
                         """
                     }
                 }

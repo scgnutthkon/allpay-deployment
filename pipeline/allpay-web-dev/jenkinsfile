@@ -23,11 +23,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh 'export HTTP_PROXY=http://10.100.12.240:6969/'
-                sh 'export HTTPS_PROXY=http://10.100.12.240:6969/'
-                sh 'export NO_PROXY=127.*,10.100.*'
-                sh 'docker build -t localhost:5000/allpay-web-dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
-                sh 'docker push localhost:5000/allpay-web-dev'
+                sh 'docker build -t localhost:5000/allpay-web:dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
+                sh 'docker push localhost:5000/allpay-web:dev'
             }
         }
         stage('Deploy') {

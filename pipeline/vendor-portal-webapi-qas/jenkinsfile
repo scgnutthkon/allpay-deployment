@@ -37,6 +37,8 @@ pipeline {
                 sh 'ls -al'
                 sh "docker build -t localhost:5000/vendor-portal-webapi:${TAG_NAME} -f VendorPortalWebAPI/Dockerfile ."
                 sh "docker push localhost:5000/vendor-portal-webapi:${TAG_NAME}"
+                sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
+                sh "helm cm-push vendor-portal-webapi-${TAG_NAME}.tgz allpay-charts -f"
             }
         }
         stage('Deploy') {
@@ -47,8 +49,7 @@ pipeline {
 
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment vendor-portal-webapi vendor-portal-webapi=allpay-registry.scg.com/vendor-portal-webapi:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment vendor-portal-webapi -n allpay-qas'
+                            helm upgrade vendor-portal-webapi allpay-charts/vendor-portal-webapi --version ${TAG_NAME} -f ~/deployment/vendor-portal-webapi/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
                         """
                     }
                 }

@@ -33,11 +33,10 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh 'export HTTP_PROXY=http://10.100.12.240:6969/'
-                sh 'export HTTPS_PROXY=http://10.100.12.240:6969/'
-                sh 'export NO_PROXY=127.*,10.100.*'
-                sh "docker build -t localhost:5000/allpay-web-qas:${TAG_NAME} --build-arg='BUILD_ENV=qas' -f Dockerfile ."
-                sh "docker push localhost:5000/allpay-web-qas:${TAG_NAME}"
+                sh "docker build -t localhost:5000/allpay-web:${TAG_NAME}-qas --build-arg='BUILD_ENV=qas' -f Dockerfile ."
+                sh "docker push localhost:5000/allpay-web:${TAG_NAME}-qas"
+                sh "helm package --app-version ${TAG_NAME}-qas --version ${TAG_NAME}-qas ./.charts"
+                sh "helm cm-push allpay-web-${TAG_NAME}-qas.tgz allpay-charts -f"
             }
         }
         stage('Deploy') {
@@ -47,8 +46,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
-                            kubectl set image deployment allpay-web allpay-web=allpay-registry.scg.com/allpay-web-qas:${TAG_NAME} -n allpay-qas && 
-                            kubectl rollout restart deployment allpay-web -n allpay-qas'
+                            helm upgrade allpay-web allpay-charts/allpay-web --version ${TAG_NAME} -f ~/deployment/allpay-web/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
                         """
                     }
                 }
