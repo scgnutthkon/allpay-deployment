@@ -7,14 +7,14 @@ services:
     environment:
       - STORAGE=local
       - STORAGE_LOCAL_ROOTDIR=/data # Directory where charts will be stored
-      - DEBUG=true # Optional: Set to true for debugging logs
+      - DEBUG=false # Optional: Set to true for debugging logs
     volumes:
       - /data/charts:/data # Bind mount the local 'charts' directory
-  ui:
-     container_name: chartmuseum-ui
-     image: idobry/chartmuseumui:latest
-     environment:
-      CHART_MUSEUM_URL: "http://chartmuseum:8080"
-      # BASIC_AUTH_USERS: '[{"username":"admin", "password":"Pluto@2024"}]'
-     ports:
-      - 8084:8080
+  # ui:
+  #    container_name: chartmuseum-ui
+  #    image: idobry/chartmuseumui:latest
+  #    environment:
+  #     CHART_MUSEUM_URL: "http://chartmuseum:8080"
+  #     # BASIC_AUTH_USERS: '[{"username":"admin", "password":"Pluto@2024"}]'
+  #    ports:
+  #     - 8084:8080
