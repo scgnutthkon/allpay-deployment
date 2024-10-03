@@ -9,9 +9,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     build:
       dockerfile: ./Dockerfile.ssh_agent
-    args:
-        HTTP_PROXY: http://CADAllpayVendor01:Avd%40%400113579@proxy-server.scg.com:3128/
-        HTTPS_PROXY: http://CADAllpayVendor01:Avd%40%400113579@proxy-server.scg.com:3128/
+      args:
+          HTTP_PROXY: http://CADAllpayVendor01:Avd%40%400113579@proxy-server.scg.com:3128/
+          HTTPS_PROXY: http://CADAllpayVendor01:Avd%40%400113579@proxy-server.scg.com:3128/
     network_mode: "host"
 
 
