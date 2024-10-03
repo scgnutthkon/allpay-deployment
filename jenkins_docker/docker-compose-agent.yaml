@@ -1,0 +1,14 @@
+services:
+  agent1:
+    container_name: agent1
+    image: jenkins-agent1
+    restart: always
+    # ports:
+    #   - 22
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    build:
+      dockerfile: ./Dockerfile.ssh_agent
+    network_mode: "host"
+
+
