@@ -2,8 +2,8 @@
 FROM ubuntu:latest
 
 # Set proxy variables
-ARG HTTP_PROXY
-ARG HTTPS_PROXY
+# ARG HTTP_PROXY
+# ARG HTTPS_PROXY
 
 # Install necessary dependencies
 RUN apt-get update && \
