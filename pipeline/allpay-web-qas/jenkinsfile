@@ -33,8 +33,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh "docker build -t localhost:5000/allpay-web:${TAG_NAME}-qas --build-arg='BUILD_ENV=qas' -f Dockerfile ."
-                sh "docker push localhost:5000/allpay-web:${TAG_NAME}-qas"
+                sh "docker build -t allpay-registry.scg.com/allpay-web:${TAG_NAME}-qas --build-arg='BUILD_ENV=qas' -f Dockerfile ."
+                sh "docker push allpay-registry.scg.com/allpay-web:${TAG_NAME}-qas"
                 sh "helm package --app-version ${TAG_NAME}-qas --version ${TAG_NAME}-qas ./.charts"
                 sh "helm cm-push allpay-web-${TAG_NAME}-qas.tgz allpay-charts -f"
             }

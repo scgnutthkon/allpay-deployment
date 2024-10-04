@@ -37,8 +37,8 @@ pipeline {
                 sh "echo 'Use latest tag'"
                 // unstash 'project_source'
                 // sh 'ls -al'
-                // sh "docker build -t localhost:5000/vendor-portal-webapi:${TAG_NAME} -f VendorPortalWebAPI/Dockerfile ."
-                // sh "docker push localhost:5000/vendor-portal-webapi:${TAG_NAME}"
+                // sh "docker build -t allpay-registry.scg.com/vendor-portal-webapi:${TAG_NAME} -f VendorPortalWebAPI/Dockerfile ."
+                // sh "docker push allpay-registry.scg.com/vendor-portal-webapi:${TAG_NAME}"
             }
         }
         stage('Deploy') {

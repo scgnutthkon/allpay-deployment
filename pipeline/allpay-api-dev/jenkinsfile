@@ -25,8 +25,8 @@ pipeline {
                 unstash 'project_source'
                 sh 'ls -al'
                 sh 'echo $HTTP_PROXY'
-                sh 'docker build -t localhost:5000/allpay-webapi -f AllPayWebAPI/Dockerfile .'
-                sh 'docker push localhost:5000/allpay-webapi'
+                sh 'docker build -t allpay-registry.scg.com/allpay-webapi -f AllPayWebAPI/Dockerfile .'
+                sh 'docker push allpay-registry.scg.com/allpay-webapi'
             }
         }
         stage('Deploy') {

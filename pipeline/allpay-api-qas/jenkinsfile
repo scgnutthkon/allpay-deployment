@@ -36,8 +36,8 @@ pipeline {
                 unstash 'project_source'
                 sh 'ls -al'
                 sh 'echo $HTTP_PROXY'
-                sh "docker build -t localhost:5000/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
-                sh "docker push localhost:5000/allpay-webapi:${TAG_NAME}"
+                sh "docker build -t allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
+                sh "docker push allpay-registry.scg.com/allpay-webapi:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push allpay-webapi-${TAG_NAME}.tgz allpay-charts -f"
             }

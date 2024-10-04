@@ -24,8 +24,8 @@ pipeline {
             steps {
                 unstash 'project_source'
                 sh 'ls -al'
-                sh 'docker build -t localhost:5000/vendor-portal-webapi -f VendorPortalWebAPI/Dockerfile .'
-                sh 'docker push localhost:5000/vendor-portal-webapi'
+                sh 'docker build -t allpay-registry.scg.com/vendor-portal-webapi -f VendorPortalWebAPI/Dockerfile .'
+                sh 'docker push allpay-registry.scg.com/vendor-portal-webapi'
             }
         }
         stage('Deploy') {

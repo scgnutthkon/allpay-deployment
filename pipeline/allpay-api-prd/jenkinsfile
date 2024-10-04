@@ -38,8 +38,8 @@ pipeline {
                 sh "echo 'Use latest tag'"
                 // sh 'ls -al'
                 // sh 'echo $HTTP_PROXY'
-                // sh "docker build -t localhost:5000/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
-                // sh "docker push localhost:5000/allpay-webapi:${TAG_NAME}"
+                // sh "docker build -t allpay-registry.scg.com/allpay-webapi:${TAG_NAME} -f AllPayWebAPI/Dockerfile ."
+                // sh "docker push allpay-registry.scg.com/allpay-webapi:${TAG_NAME}"
             }
         }
         stage('Deploy') {

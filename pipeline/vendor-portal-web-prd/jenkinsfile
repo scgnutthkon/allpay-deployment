@@ -34,8 +34,8 @@ pipeline {
             steps {
                 unstash 'project_source'
                 sh 'ls -al'
-                sh "docker build -t localhost:5000/vendor-portal-web:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
-                sh "docker push localhost:5000/vendor-portal-web:${TAG_NAME}"
+                sh "docker build -t allpay-registry.scg.com/vendor-portal-web:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
+                sh "docker push allpay-registry.scg.com/vendor-portal-web:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push vendor-portal-web-${TAG_NAME}.tgz allpay-charts -f"
             }

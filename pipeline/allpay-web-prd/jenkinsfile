@@ -36,8 +36,8 @@ pipeline {
                 sh 'export HTTP_PROXY=http://10.100.12.240:6969/'
                 sh 'export HTTPS_PROXY=http://10.100.12.240:6969/'
                 sh 'export NO_PROXY=127.*,10.100.*'
-                sh "docker build -t localhost:5000/allpay-web:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
-                sh "docker push localhost:5000/allpay-web:${TAG_NAME}"
+                sh "docker build -t allpay-registry.scg.com/allpay-web:${TAG_NAME} --build-arg='BUILD_ENV=prd' -f Dockerfile ."
+                sh "docker push allpay-registry.scg.com/allpay-web:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push allpay-web-${TAG_NAME}.tgz allpay-charts -f"
             }

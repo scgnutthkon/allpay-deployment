@@ -23,8 +23,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh 'docker build -t localhost:5000/allpay-web:dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
-                sh 'docker push localhost:5000/allpay-web:dev'
+                sh 'docker build -t allpay-registry.scg.com/allpay-web:dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
+                sh 'docker push allpay-registry.scg.com/allpay-web:dev'
             }
         }
         stage('Deploy') {

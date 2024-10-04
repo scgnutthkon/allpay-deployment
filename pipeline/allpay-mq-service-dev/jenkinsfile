@@ -23,8 +23,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh 'docker build -t localhost:5000/allpay-mq-service -f AllPayMQService/Dockerfile .'
-                sh 'docker push localhost:5000/allpay-mq-service'
+                sh 'docker build -t allpay-registry.scg.com/allpay-mq-service -f AllPayMQService/Dockerfile .'
+                sh 'docker push allpay-registry.scg.com/allpay-mq-service'
             }
         }
         stage('Deploy') {

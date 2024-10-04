@@ -34,8 +34,8 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh "docker build -t localhost:5000/allpay-mq-service:${TAG_NAME} -f AllPayMQService/Dockerfile ."
-                sh "docker push localhost:5000/allpay-mq-service:${TAG_NAME}"
+                sh "docker build -t allpay-registry.scg.com/allpay-mq-service:${TAG_NAME} -f AllPayMQService/Dockerfile ."
+                sh "docker push allpay-registry.scg.com/allpay-mq-service:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push allpay-mq-service-${TAG_NAME}.tgz allpay-charts -f"
             }
