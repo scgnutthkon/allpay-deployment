@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+
+    environment {
+        TAG_NAME = ''
+    }
+
+    stages {
+        stage('Checkout') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh "echo 'Use latest tag'"
+                // sh 'bash ~/prepare_pipeline.sh'
+                // script {
+                //     git branch: 'main',
+                //         credentialsId: 'scgnutthkon_github',
+                //         url: 'https://github.com/CADGithubMGR/AllpayMQWorker.git'
+
+                //     // Get the latest tag
+                //     TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+
+                    
+                //     // Checkout the latest tag
+                //     sh "git checkout ${TAG_NAME}"
+
+                //     stash includes: '**/*', name: 'project_source'
+                //}
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh "echo 'Use latest tag'"
+                // unstash 'project_source'
+                // sh "docker build -t allpay-registry.scg.com/allpay-mq-service:${TAG_NAME} -f AllPayMQService/Dockerfile ."
+                // sh "docker push allpay-registry.scg.com/allpay-mq-service:${TAG_NAME}"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo Update version...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_SCCBSAPVPR1_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+
+                        sh """
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
+                            helm upgrade allpay-dbmigration allpay-charts/allpay-dbmigration -f ~/deployment/allpay-dbmigration/values.prd.yaml -n allpay --insecure-skip-tls-verify'
+                        """
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            emailext(
+                subject: '$DEFAULT_SUBJECT',
+                body: '$DEFAULT_CONTENT',
+                to: '$DEFAULT_RECIPIENTS'
+            )
+        }
+    }
+}

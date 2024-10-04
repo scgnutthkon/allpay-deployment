@@ -1,0 +1,6 @@
+image:
+  pullPolicy: Always
+
+env:
+  - name: NETCORE_ENVIRONMENT
+    value: Dev
