@@ -1,8 +1,5 @@
 image:
-  repository: allpay-registry.scg.com/vendor-portal-web-prd
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
 
 ingress:
   enabled: true
