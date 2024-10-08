@@ -49,6 +49,7 @@ pipeline {
 
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
+                            helm repo update allpay-charts
                             helm upgrade vendor-portal-webapi allpay-charts/vendor-portal-webapi --version ${TAG_NAME} -f ~/deployment/vendor-portal-webapi/values.prd.yaml -n allpay --insecure-skip-tls-verify'
                         """
                     }

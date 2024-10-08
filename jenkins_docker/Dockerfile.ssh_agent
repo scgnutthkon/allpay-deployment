@@ -55,6 +55,9 @@ RUN chmod 744 /root/patch_agent.sh
 
 RUN bash -c /root/patch_agent.sh
 
+RUN su - jenkins -c "helm plugin install https://github.com/chartmuseum/helm-push.git"
+RUN su - jenkins -c "helm repo add allpay-charts https://allpay-charts.scg.com/ --insecure-skip-tls-verify"
+
 RUN sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
 
 # Standard SSH port

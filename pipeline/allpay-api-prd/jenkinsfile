@@ -49,6 +49,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_SCCBSAPVPR1_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
+                            helm repo update allpay-charts
                             helm upgrade allpay-webapi allpay-charts/allpay-webapi -f ~/deployment/allpay-webapi/values.prd.yaml -n allpay --insecure-skip-tls-verify'
                         """
                     }

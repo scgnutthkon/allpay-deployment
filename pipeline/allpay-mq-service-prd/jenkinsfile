@@ -48,6 +48,7 @@ pipeline {
 
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
+                            helm repo update allpay-charts
                             helm upgrade allpay-mq-service allpay-charts/allpay-mq-service -f ~/deployment/allpay-mq-service/values.prd.yaml -n allpay --insecure-skip-tls-verify'
                         """
                     }

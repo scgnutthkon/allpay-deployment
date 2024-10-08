@@ -36,7 +36,7 @@ pipeline {
                 sh "docker build -t allpay-registry.scg.com/allpay-web:${TAG_NAME}-qas --build-arg='BUILD_ENV=qas' -f Dockerfile ."
                 sh "docker push allpay-registry.scg.com/allpay-web:${TAG_NAME}-qas"
                 sh "helm package --app-version ${TAG_NAME}-qas --version ${TAG_NAME}-qas ./.charts"
-                sh "helm cm-push allpay-web-${TAG_NAME}-qas.tgz allpay-charts -f"
+                sh "helm cm-push allpay-web-${TAG_NAME}-qas.tgz allpay-charts -f --insecure"
             }
         }
         stage('Deploy') {
@@ -46,6 +46,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
+                            helm repo update allpay-charts
                             helm upgrade allpay-web allpay-charts/allpay-web --version ${TAG_NAME} -f ~/deployment/allpay-web/values.qas.yaml -n allpay-qas --insecure-skip-tls-verify'
                         """
                     }
