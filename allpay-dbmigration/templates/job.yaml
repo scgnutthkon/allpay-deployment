@@ -26,6 +26,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           command: {{ toYaml .Values.job.command | nindent 10 }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       restartPolicy: {{ .Values.job.restartPolicy }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
