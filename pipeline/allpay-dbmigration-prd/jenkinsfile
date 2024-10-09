@@ -49,6 +49,7 @@ pipeline {
                         sh """
                             ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.101.3.153 '
                             helm repo update allpay-charts
+                            kubectl delete job allpay-dbmigration -n allpay
                             helm upgrade allpay-dbmigration allpay-charts/allpay-dbmigration -f ~/deployment/allpay-dbmigration/values.prd.yaml -n allpay --insecure-skip-tls-verify'
                         """
                     }
