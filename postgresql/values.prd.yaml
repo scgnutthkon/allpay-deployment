@@ -22,6 +22,9 @@ primary:
       memory: "128Mi"
       cpu: "100m"
       ephemeral-storage: "50Mi"
+  extendedConfiguration: |-
+                        idle_in_transaction_session_timeout = 600000
+                        idle_session_timeout = 600000
 
 readReplicas:
   name: secondary
@@ -38,6 +41,9 @@ readReplicas:
       memory: "128Mi"
       cpu: "100m"
       ephemeral-storage: "50Mi"
+  extendedConfiguration: |-
+                        idle_in_transaction_session_timeout = 600000
+                        idle_session_timeout = 600000
 
 replication:
   numSynchronousReplicas: 1
