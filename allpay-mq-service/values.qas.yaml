@@ -15,3 +15,11 @@ volumeMounts:
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Qas
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+replicaCount: 2

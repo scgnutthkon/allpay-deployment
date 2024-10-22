@@ -21,3 +21,11 @@ ingress:
     # - secretName: allpay-tls
     #   hosts:
     #     - allpay-vendor-qas.scg.com
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+replicaCount: 2
