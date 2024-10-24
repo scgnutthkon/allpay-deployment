@@ -72,7 +72,7 @@ if ($AllPayWeb -ne "-") {
     try {
         Set-Location .\AllPayVendorWeb
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         npm version $AllPayWeb
         git push
@@ -91,7 +91,7 @@ if ($VendorPortalWeb -ne "-") {
     try {
         Set-Location .\VendorPortalWeb
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         npm version patch
         git push
@@ -110,7 +110,7 @@ if ($MQService -ne "-") {
     try {
         Set-Location .\AllpayMQWorker
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $MQService
@@ -130,7 +130,7 @@ if ($BGService -ne "-") {
     try {
         Set-Location .\AllPayVendorBackgroundService
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $BGService
@@ -150,7 +150,7 @@ if ($AllPayWebAPI -ne "-") {
     try {
         Set-Location .\AllPayVendorApi
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $AllPayWebAPI
@@ -170,7 +170,7 @@ if ($VendorPortalWebAPI -ne "-") {
     try {
         Set-Location .\VendorPortalApi
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $VendorPortalWebAPI
@@ -190,7 +190,7 @@ if ($DBMigration -ne "-") {
     try {
         Set-Location .\AllPayVendorDatabase
         git fetch --all
-        git branch main
+        git checkout main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $DBMigration
