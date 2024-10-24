@@ -113,7 +113,7 @@ if ($MQService -ne "-") {
         git branch main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
-        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart "patch"
+        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $MQService
         git tag $newVersion
         git push --tag
         Write-Host "Tag mq-service success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
@@ -133,7 +133,7 @@ if ($BGService -ne "-") {
         git branch main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
-        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart "patch"
+        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $BGService
         git tag $newVersion
         git push --tag
         Write-Host "Tag allpay-web success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
@@ -153,7 +153,7 @@ if ($AllPayWebAPI -ne "-") {
         git branch main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
-        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart "patch"
+        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $AllPayWebAPI
         git tag $newVersion
         git push --tag
         Write-Host "Tag allpay-api success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
@@ -173,7 +173,7 @@ if ($VendorPortalWebAPI -ne "-") {
         git branch main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
-        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart "patch"
+        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $VendorPortalWebAPI
         git tag $newVersion
         git push --tag
         Write-Host "Tag vendor-portal-api success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
@@ -193,7 +193,7 @@ if ($DBMigration -ne "-") {
         git branch main
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
-        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart "patch"
+        $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $DBMigration
         git tag $newVersion
         git push --tag
         Write-Host "Tag db-migration success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
