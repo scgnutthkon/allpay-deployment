@@ -136,10 +136,10 @@ if ($BGService -ne "-") {
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $BGService
         git tag $newVersion
         git push --tag
-        Write-Host "Tag allpay-web success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
+        Write-Host "Tag background-service success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
-        Write-Host "Tag mq-service error: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "Tag background-service error: $($_.Exception.Message)" -ForegroundColor Red
     }
     finally {
         Set-Location ..
