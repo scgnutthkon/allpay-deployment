@@ -48,6 +48,8 @@ RUN usermod -aG docker jenkins
 
 RUN usermod -aG systemd-journal jenkins
 
+RUN groupmod -g 988 docker
+
 COPY patch/patch_agent.sh /root
 
 RUN chown root /root/patch_agent.sh
