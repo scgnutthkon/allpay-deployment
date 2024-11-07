@@ -8,7 +8,7 @@ ARG HTTPS_PROXY
 # Install necessary dependencies
 RUN apt-get update && \
     apt-get install -y \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     openssh-server \
     git \
     curl \
