@@ -76,7 +76,7 @@ if ($AllPayWeb -ne "-") {
         git pull
         npm version $AllPayWeb
         git push
-        git push --tag
+        git push --tag --force
         Write-Host "Tag allpay-web success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -95,7 +95,7 @@ if ($VendorPortalWeb -ne "-") {
         git pull
         npm version patch
         git push
-        git push --tag
+        git push --tag --force
         Write-Host "Tag vendor-portal-web success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -114,8 +114,8 @@ if ($MQService -ne "-") {
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $MQService
-        git tag $newVersion
-        git push --tag
+        git tag $newVersion --force
+        git push --tag --force
         Write-Host "Tag mq-service success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -134,8 +134,8 @@ if ($BGService -ne "-") {
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $BGService
-        git tag $newVersion
-        git push --tag
+        git tag $newVersion --force
+        git push --tag --force
         Write-Host "Tag background-service success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -154,8 +154,8 @@ if ($AllPayWebAPI -ne "-") {
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $AllPayWebAPI
-        git tag $newVersion
-        git push --tag
+        git tag $newVersion --force
+        git push --tag --force
         Write-Host "Tag allpay-api success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -174,8 +174,8 @@ if ($VendorPortalWebAPI -ne "-") {
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $VendorPortalWebAPI
-        git tag $newVersion
-        git push --tag
+        git tag $newVersion --force
+        git push --tag --force
         Write-Host "Tag vendor-portal-api success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
@@ -194,8 +194,8 @@ if ($DBMigration -ne "-") {
         git pull
         $lastVersion = (git describe --abbrev=0 --tags)
         $newVersion = ResolveNewVersion -oldversion $lastVersion -incrementPart $DBMigration
-        git tag $newVersion
-        git push --tag
+        git tag $newVersion --force
+        git push --tag --force
         Write-Host "Tag db-migration success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
     }
     catch {
