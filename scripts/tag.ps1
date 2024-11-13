@@ -93,7 +93,7 @@ if ($VendorPortalWeb -ne "-") {
         git fetch --all
         git checkout main
         git pull
-        npm version patch
+        npm version $VendorPortalWeb
         git push
         git push --tag --force
         Write-Host "Tag vendor-portal-web success: $(git describe --abbrev=0 --tags)" -ForegroundColor Green
