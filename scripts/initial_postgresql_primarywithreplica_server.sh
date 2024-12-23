@@ -49,5 +49,7 @@ sudo rm -rf /var/lib/postgresql/17/replica/*
 
 PGPASSWORD="$replica_password" sudo pg_basebackup -h $primary_host -U $replica_user -X stream -C -S replica_1 -v -R -W -D /var/lib/postgresql/17/replica/
 
+sudo chown -R postgres:postgres /var/lib/postgresql/17/replica
+
 sudo systemctl restart postgresql
 
