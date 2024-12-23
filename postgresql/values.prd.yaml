@@ -46,6 +46,8 @@ readReplicas:
   extendedConfiguration: |-
                         idle_in_transaction_session_timeout = 600000
                         idle_session_timeout = 600000
+                        statement_timeout = 600000
+                        max_locks_per_transaction = 128
 
 replication:
   numSynchronousReplicas: 1
