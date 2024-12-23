@@ -12,20 +12,26 @@ sudo apt update
 
 sudo apt install postgresql-17 postgresql-contrib -y
 
-sudo cat << EOF > /etc/postgresql/17/main/conf.d/override.conf
+# Configure the primary PostgreSQL instance
+sudo bash -c "cat << EOF > /etc/postgresql/17/main/conf.d/override.conf
 listen_addresses = '*'
 port = '5432'
 wal_level = 'replica'
-EOF
+EOF"
 
-echo "host    replication     $replica_user      0.0.0.0/0            md5" >> /etc/postgresql/17/main/pg_hba.conf
-echo "host    replication     $replica_user      ::/0            md5" >> /etc/postgresql/17/main/pg_hba.conf
-echo "host     all             all             0.0.0.0/0               md5" >> /etc/postgresql/17/main/pg_hba.conf
-echo "host     all             all             ::/0                    md5" >> /etc/postgresql/17/main/pg_hba.conf
+# Update `pg_hba.conf` for the primary
+sudo bash -c "cat << EOF >> /etc/postgresql/17/main/pg_hba.conf
+host    replication     $replica_user      0.0.0.0/0            md5
+host    replication     $replica_user      ::/0                 md5
+host    all             all                0.0.0.0/0            md5
+host    all             all                ::/0                 md5
+EOF"
 
+# Enable and start PostgreSQL
 sudo systemctl enable postgresql
 sudo systemctl start postgresql
 
+# Set the password for the default postgres user and create a replication user
 sudo -u postgres psql -p 5432 -c "ALTER USER postgres WITH PASSWORD '$postgres_password';"
 sudo -u postgres psql -p 5432 -c "CREATE ROLE $replica_user WITH REPLICATION LOGIN PASSWORD '$replica_password';"
 

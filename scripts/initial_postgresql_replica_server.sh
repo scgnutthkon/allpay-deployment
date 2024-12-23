@@ -12,21 +12,29 @@ sudo apt update
 
 sudo apt install postgresql-17 postgresql-contrib -y
 
-sudo cat << EOF > /etc/postgresql/17/main/conf.d/override.conf
+# Configure the replica PostgreSQL instance
+sudo bash -c "cat << EOF > /etc/postgresql/17/main/conf.d/override.conf
 listen_addresses = '*'
-port = '5432'
-EOF
+port = '$replica_port'
+EOF"
 
-echo "host     all             all             0.0.0.0/0               md5" >> /etc/postgresql/17/main/pg_hba.conf
-echo "host     all             all             ::/0                    md5" >> /etc/postgresql/17/main/pg_hba.conf
+# Update `pg_hba.conf` for the replica
+sudo bash -c "cat << EOF >> /etc/postgresql/17/main/pg_hba.conf
+host    all             all                0.0.0.0/0            md5
+host    all             all                ::/0                 md5
+EOF"
 
+# Enable PostgreSQL service
 sudo systemctl enable postgresql
-sudo systemctl stop postgresql
 
-sudo rm -rf /var/lib/postgresql/17/main/*
+# Clean up the replica data directory
+sudo rm -rv /var/lib/postgresql/17/main
 
-PGPASSWORD="$replica_password" sudo pg_basebackup -h $primary_host -U $replica_user -X stream -C -S replica_1 -v -R -W -D /var/lib/postgresql/17/main/
+# Perform a base backup from the primary
+PGPASSWORD="$replica_password" sudo -u postgres pg_basebackup -h "$primary_host" -U "$replica_user" -X stream -C -S replica_1 -v -R -D /var/lib/postgresql/17/main/
 
+# Set proper ownership for the replica directory
 sudo chown -R postgres:postgres /var/lib/postgresql/17/main
 
-sudo systemctl start postgresql
+# Restart PostgreSQL to finalize setup
+sudo systemctl restart postgresql
