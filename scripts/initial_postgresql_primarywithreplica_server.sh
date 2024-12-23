@@ -5,7 +5,7 @@ export https_proxy="http://CADAllpayVendor05:Avd%40%400513579@proxy-server.scg.c
 replica_user="replica_user"
 replica_password="Pay@1234AB!"
 replica_port=5433
-postgres_password="PostgresStrongPassword" # Set this to your desired password
+postgres_password="Pay@1234AB!" # Set this to your desired password
 primary_host="127.0.0.1" # Replace with the primary server's IP or hostname
 
 # Update package lists
