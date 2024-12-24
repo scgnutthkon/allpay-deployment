@@ -14,4 +14,4 @@ for DB_NAME in "${DB_NAMES[@]}"; do
    sudo mongodump --username=${MONGODB_ROOT_USER} --password=${MONGODB_ROOT_PASSWORD} --authenticationDatabase=admin --host=127.0.0.1 --port=27017 --db=${DB_NAME} --gzip --archive=${BACKUP_DIR}/${DB_NAME}-${DATE}.gz
 done
 
-find ${BACKUP_DIR}/ -type f -name "*.gz" -mtime +10 -exec rm -f {} \;
+sudo find ${BACKUP_DIR}/ -type f -name "*.gz" -mtime +10 -exec rm -f {} \;

@@ -14,4 +14,4 @@ for DB_NAME in "${DB_NAMES[@]}"; do
    sudo -u postgres bash -c "pg_dump --clean --if-exists --load-via-partition-root --quote-all-identifiers ${DB_NAME} | gzip > ${BACKUP_DIR}/${DB_NAME}-${DATE}.sql.gz"
 done
 
-find ${BACKUP_DIR}/ -type f -name "*.gz" -mtime +10 -exec rm -f {} \;
+sudo find ${BACKUP_DIR}/ -type f -name "*.gz" -mtime +10 -exec rm -f {} \;
