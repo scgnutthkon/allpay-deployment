@@ -15,3 +15,9 @@ volumeMounts:
 env:
 - name: ASPNETCORE_ENVIRONMENT
   value: Qas
+
+resources:
+  requests:
+    cpu: 2
+    memory: 4Gi
+  limits: {}
