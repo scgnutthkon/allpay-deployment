@@ -25,15 +25,15 @@ helm install jsreport ./jsreport -f ./jsreport/values.prd.yaml -n allpay
 ## Uninstall JSReport
 #### Dev Environment
 ```sh
-helm uninstall postgresql -n allpay-dev
+helm uninstall jsreport -n allpay-dev
 ```
 #### QAS Environment
 ```sh
-helm uninstall postgresql -n allpay-qas
+helm uninstall jsreport -n allpay-qas
 ```
 #### Production Environment
 ```sh
-helm uninstall postgresql -n allpay
+helm uninstall jsreport -n allpay
 ```
 
 
