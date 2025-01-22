@@ -17,6 +17,12 @@ sudo bash -c "cat << EOF > /etc/postgresql/17/main/conf.d/override.conf
 listen_addresses = '*'
 port = '5432'
 wal_level = 'replica'
+idle_in_transaction_session_timeout = 600000
+statement_timeout = 600000
+tcp_keepalives_idle = 60       # Time in seconds before sending keepalive
+tcp_keepalives_interval = 10  # Time between keepalive messages
+tcp_keepalives_count = 5      # Number of failed attempts before closing
+max_connections = 200
 EOF"
 
 # Update `pg_hba.conf` for the primary

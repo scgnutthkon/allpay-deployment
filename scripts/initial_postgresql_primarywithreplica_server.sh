@@ -54,6 +54,12 @@ sudo pg_createcluster 17 replica --port=$replica_port
 sudo bash -c "cat << EOF > /etc/postgresql/17/replica/conf.d/override.conf
 listen_addresses = '*'
 port = '$replica_port'
+idle_in_transaction_session_timeout = 600000
+statement_timeout = 600000
+tcp_keepalives_idle = 60       # Time in seconds before sending keepalive
+tcp_keepalives_interval = 10  # Time between keepalive messages
+tcp_keepalives_count = 5      # Number of failed attempts before closing
+max_connections = 200
 EOF"
 
 # Update `pg_hba.conf` for the replica
