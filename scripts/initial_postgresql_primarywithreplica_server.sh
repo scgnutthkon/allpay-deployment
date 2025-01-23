@@ -60,6 +60,7 @@ tcp_keepalives_idle = 60       # Time in seconds before sending keepalive
 tcp_keepalives_interval = 10  # Time between keepalive messages
 tcp_keepalives_count = 5      # Number of failed attempts before closing
 max_connections = 200
+idle_session_timeout = 600000
 EOF"
 
 # Update `pg_hba.conf` for the replica
