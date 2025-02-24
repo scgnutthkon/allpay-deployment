@@ -28,8 +28,15 @@ spec:
           command: {{ toYaml .Values.job.command | nindent 10 }}
           {{- with .Values.env }}
           env:
+          {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          - key: "TargetVersions__AllPay"
+            value: {{ .Values.params.allpayTarget }}
+          - key: "TargetVersions__ShareMaster"
+            value: {{ .Values.params.shareMasterTarget }}
+          - key: "TargetVersions__VendorPortal"
+            value: {{ .Values.params.vendorPortalTarget }}
       restartPolicy: {{ .Values.job.restartPolicy }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
