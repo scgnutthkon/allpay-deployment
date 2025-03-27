@@ -48,11 +48,11 @@ su -c "git config --global https.proxy $proxyUrl" jenkins
 
 
 cat << EOF > /home/jenkins/prepare_pipeline.sh
-export http_proxy=$proxyUrl
-export https_proxy=$proxyUrl
+#export http_proxy=$proxyUrl
+#export https_proxy=$proxyUrl
 git config --global http.proxy $proxyUrl
 git config --global https.proxy $proxyUrl
-curl https://www.bbc.com > /dev/null
+#curl https://www.bbc.com > /dev/null
 EOF
 
 chown jenkins /home/jenkins/prepare_pipeline.sh
