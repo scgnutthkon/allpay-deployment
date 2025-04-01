@@ -11,7 +11,7 @@ cat << EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
 [Service]
 Environment="HTTP_PROXY=$proxyEsp"
 Environment="HTTPS_PROXY=$proxyEsp"
-Environment="NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.scg.com"
+Environment="NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.scg.com,localhost"
 EOF
 
 chmod 644 /etc/systemd/system/docker.service.d/http-proxy.conf
