@@ -59,7 +59,7 @@ statement_timeout = 600000
 tcp_keepalives_idle = 60       # Time in seconds before sending keepalive
 tcp_keepalives_interval = 10  # Time between keepalive messages
 tcp_keepalives_count = 5      # Number of failed attempts before closing
-max_connections = 200
+max_connections = 3000
 idle_session_timeout = 600000
 EOF"
 
