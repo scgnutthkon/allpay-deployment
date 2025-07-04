@@ -2,5 +2,5 @@ image:
   pullPolicy: Always
 
 env:
-  - name: NETCORE_ENVIRONMENT
-    value: Qas
+  - name: ENV
+    value: qas

@@ -2,5 +2,5 @@ image:
   pullPolicy: Always
 
 env:
-- name: NETCORE_ENVIRONMENT
-  value: Production
+  - name: ENV
+    value: prd
