@@ -34,7 +34,7 @@ pipeline {
             }
             steps {
                 unstash 'project_source'
-                sh "docker build -t allpay-registry.scg.com/allpay-dbmigration:${TAG_NAME} -f AllPayDBMigration/Dockerfile ."
+                sh "docker build -t allpay-registry.scg.com/allpay-dbmigration:${TAG_NAME} -f ./Dockerfile ."
                 sh "docker push allpay-registry.scg.com/allpay-dbmigration:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push allpay-dbmigration-${TAG_NAME}.tgz allpay-charts -f --insecure"

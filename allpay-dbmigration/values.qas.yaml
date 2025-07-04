@@ -1,6 +1,7 @@
 image:
   pullPolicy: Always
 
-env:
-  - name: ENV
-    value: qas
+params:
+  migrationDBs: "ap,sm,vp"
+  mode: "up"
+  envName: "qas"
