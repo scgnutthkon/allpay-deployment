@@ -9,6 +9,10 @@ pipeline {
             steps {
                 script {
                     sh 'ls -al'
+
+                    TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+
+                    sh "echo 'tag: ${TAG_NAME}'"
                 }
             }
         }
