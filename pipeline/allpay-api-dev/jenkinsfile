@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'TAG_NAME', description: 'Git tag to deploy (e.g., v1.0.0)')
+    }
+
     stages {
         stage('Checkout') {
             agent {
