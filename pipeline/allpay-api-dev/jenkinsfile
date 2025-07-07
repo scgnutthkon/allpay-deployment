@@ -7,11 +7,10 @@ pipeline {
                 label 'agent1'
             }
             steps {
-                sh 'bash ~/prepare_pipeline.sh'
                 script {
-                    git branch: 'main',
-                        credentialsId: 'scgnutthkon_github',
-                        url: 'https://github.com/CADGithubMGR/AllPayVendorApi.git'
+                    git branch: 'develop',
+                        credentialsId: 'jenkins_gitlab_ssh',
+                        url: 'git@cad-gitlab.scg.com:allpay/allpay-webapi.git'
 
                     stash includes: '**/*', name: 'project_source'
                 }
