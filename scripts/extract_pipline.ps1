@@ -1,6 +1,6 @@
 ﻿# Set base paths
 $JobsRoot = "C:\Users\nutthkon\Desktop\test\jobs"
-$OutputRoot = "C:\Users\nutthkon\Desktop\test\pipeline"
+$OutputRoot = "C:\Users\nutthkon\Documents\GitHub\allpay\deployment\pipeline"
 
 # Get all config.xml files
 $configFiles = Get-ChildItem -Path $JobsRoot -Recurse -Filter "config.xml"
@@ -24,7 +24,7 @@ foreach ($config in $configFiles) {
             # Output path: ./pipeline/<jobName>/Jenkinsfile
             $jobOutputDir = Join-Path $OutputRoot $jobName
             New-Item -ItemType Directory -Force -Path $jobOutputDir | Out-Null
-            $outputFile = Join-Path $jobOutputDir "Jenkinsfile"
+            $outputFile = Join-Path $jobOutputDir "jenkinsfile"
 
             $pipelineScript | Out-File -Encoding UTF8 -FilePath $outputFile
             Write-Host "✔️  Backed up $jobName pipeline to $outputFile"
