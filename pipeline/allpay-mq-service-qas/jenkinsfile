@@ -1,4 +1,4 @@
-pipeline {
+﻿pipeline {
     agent any
 
     environment {
@@ -13,18 +13,19 @@ pipeline {
             steps {
                 sh 'bash ~/prepare_pipeline.sh'
                 script {
-                    git branch: 'main',
-                        credentialsId: 'scgnutthkon_github',
-                        url: 'https://github.com/CADGithubMGR/AllpayMQWorker.git'
+                    git branch: 'develop',
+                        credentialsId: 'jenkins_gitlab_ssh',
+                        url: 'git@cad-gitlab.scg.com:allpay/mq-service.git'
 
                     // Get the latest tag
                     TAG_NAME = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+                    TAG_NAME = "${TAG_NAME}-${BUILD_NUMBER}"
 
                     
                     // Checkout the latest tag
-                    sh "git checkout ${TAG_NAME}"
+                    //sh "git checkout ${TAG_NAME}"
 
-                    stash includes: '**/*', name: 'project_source'
+                    //stash includes: '**/*', name: 'project_source'
                 }
             }
         }
@@ -33,11 +34,12 @@ pipeline {
                 label 'agent1'
             }
             steps {
-                unstash 'project_source'
+                //unstash 'project_source'
                 sh "docker build -t allpay-registry.scg.com/allpay-mq-service:${TAG_NAME} -f AllPayMQService/Dockerfile ."
                 sh "docker push allpay-registry.scg.com/allpay-mq-service:${TAG_NAME}"
                 sh "helm package --app-version ${TAG_NAME} --version ${TAG_NAME} ./.charts"
                 sh "helm cm-push allpay-mq-service-${TAG_NAME}.tgz allpay-charts -f --insecure"
+                sh "rm -f *.tgz"
             }
         }
         stage('Deploy') {
@@ -65,3 +67,4 @@ pipeline {
         }
     }
 }
+

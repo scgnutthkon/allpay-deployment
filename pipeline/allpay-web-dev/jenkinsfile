@@ -1,5 +1,9 @@
-pipeline {
+﻿pipeline {
     agent any
+    
+    environment {
+        TAG_NAME = ''
+    }
 
     stages {
         stage('Checkout') {
@@ -9,11 +13,11 @@ pipeline {
             steps {
                 sh 'bash ~/prepare_pipeline.sh'
                 script {
-                    git branch: 'main',
-                        credentialsId: 'scgnutthkon_github',
-                        url: 'https://github.com/CADGithubMGR/AllPayVendorWeb.git'
-
-                    stash includes: '**/*', name: 'project_source'
+                    git branch: 'deploy_dev',
+                        credentialsId: 'jenkins_gitlab_ssh',
+                        url: 'git@cad-gitlab.scg.com:allpay/allpay-web.git'
+                        
+                    TAG_NAME = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                 }
             }
         }
@@ -22,7 +26,9 @@ pipeline {
                 label 'agent1'
             }
             steps {
-                unstash 'project_source'
+                sh """
+                    echo '{ "version": "${TAG_NAME}" }' > ./src/app/version.json
+                """
                 sh 'docker build -t allpay-registry.scg.com/allpay-web:dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
                 sh 'docker push allpay-registry.scg.com/allpay-web:dev'
             }
@@ -50,3 +56,4 @@ pipeline {
         }
     }
 }
+

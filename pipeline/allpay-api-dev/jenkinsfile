@@ -1,9 +1,5 @@
-pipeline {
+﻿pipeline {
     agent any
-
-    parameters {
-        string(name: 'TAG_NAME', description: 'Git tag to deploy (e.g., v1.0.0)')
-    }
 
     stages {
         stage('Checkout') {
@@ -12,11 +8,9 @@ pipeline {
             }
             steps {
                 script {
-                    git branch: 'develop',
+                    git branch: 'deploy_dev',
                         credentialsId: 'jenkins_gitlab_ssh',
                         url: 'git@cad-gitlab.scg.com:allpay/allpay-webapi.git'
-
-                    stash includes: '**/*', name: 'project_source'
                 }
             }
         }
@@ -25,7 +19,6 @@ pipeline {
                 label 'agent1'
             }
             steps {
-                unstash 'project_source'
                 sh 'ls -al'
                 sh 'echo $HTTP_PROXY'
                 sh 'docker build -t allpay-registry.scg.com/allpay-webapi -f AllPayWebAPI/Dockerfile .'
@@ -55,3 +48,4 @@ pipeline {
         }
     }
 }
+
