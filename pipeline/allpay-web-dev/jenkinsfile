@@ -1,0 +1,59 @@
+﻿pipeline {
+    agent any
+    
+    environment {
+        TAG_NAME = ''
+    }
+
+    stages {
+        stage('Checkout') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh 'bash ~/prepare_pipeline.sh'
+                script {
+                    git branch: 'deploy_dev',
+                        credentialsId: 'jenkins_gitlab_ssh',
+                        url: 'git@cad-gitlab.scg.com:allpay/allpay-web.git'
+                        
+                    TAG_NAME = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                }
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh """
+                    echo '{ "version": "${TAG_NAME}" }' > ./src/app/version.json
+                """
+                sh 'docker build -t allpay-registry.scg.com/allpay-web:dev --build-arg="BUILD_ENV=dev" -f Dockerfile .'
+                sh 'docker push allpay-registry.scg.com/allpay-web:dev'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo Restarting deployment...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                        sh '''
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 'kubectl rollout restart deployment allpay-web -n allpay-dev'
+                        '''
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            emailext(
+                subject: '$DEFAULT_SUBJECT',
+                body: '$DEFAULT_CONTENT',
+                to: '$DEFAULT_RECIPIENTS'
+            )
+        }
+    }
+}
+

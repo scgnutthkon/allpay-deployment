@@ -1,0 +1,55 @@
+﻿pipeline {
+    agent any
+
+    environment {
+        TAG_NAME = ''
+    }
+
+    stages {
+        stage('Checkout') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh 'bash ~/prepare_pipeline.sh'
+                script {
+                    sh "echo 'skiped checkout step'"
+                }
+            }
+        }
+        stage('Build') {
+            agent {
+                label 'agent1'
+            }
+            steps {
+                sh 'echo "skiped build step"'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo Restarting deployment...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'administrator_sccbsapvqap6_key', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+
+                        sh """
+                            ssh -i ${SSH_PRIVATE_KEY} -o StrictHostKeyChecking=no administrator@10.100.12.94 '
+                            helm repo update allpay-charts
+                            CURRENT_VERSION=\$(helm list -n allpay-qas --filter vendor-portal-web -o json | jq -r '.[0].app_version')
+                            helm upgrade vendor-portal-web allpay-charts/vendor-portal-web --version \$CURRENT_VERSION -f ~/deployment/vendor-portal-web/values.qas.yaml --set underMaintenance=true -n allpay-qas --insecure-skip-tls-verify'
+                        """
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            emailext(
+                subject: '$DEFAULT_SUBJECT',
+                body: '$DEFAULT_CONTENT',
+                to: '$DEFAULT_RECIPIENTS'
+            )
+        }
+    }
+}
+
