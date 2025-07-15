@@ -17,7 +17,7 @@ export ftp_proxy="$proxyUrl"
 export no_proxy=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.scg.com
 
 ##########################Initial Kube Cluster#################################
-sudo kubeadmin init --node-name=master
+sudo kubeadm init --node-name=master
 
 mkdir -p $HOME/.kube
 sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config
