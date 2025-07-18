@@ -7,7 +7,7 @@ services:
     - "5000:5000"
     environment:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
-      REGISTRY_STORAGE_DELETE_ENABLED: false
+      REGISTRY_STORAGE_DELETE_ENABLED: true
     volumes:
       - /data/registry:/data
     networks:
@@ -23,7 +23,7 @@ services:
       REGISTRY_TITLE: AllPay Registry
       REGISTRY_URL: https://allpay-registry.scg.com
       REGISTRY_SSL: 'false'
-      DELETE_IMAGES: 'true'
+      DELETE_IMAGES: 'false'
       SINGLE_REGISTRY: 'true'
       SHOW_CONTENT_DIGEST: 'true'
     depends_on:
