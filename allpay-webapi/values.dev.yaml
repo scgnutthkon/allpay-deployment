@@ -36,6 +36,21 @@ volumeMounts:
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Dev
+  - name: ConnectionStrings__AllPay
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_ALLPAY_VENDOR
+  - name: ConnectionStrings__ShareMaster
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_SHARE_MASTER
+  - name: ConnectionStrings__VendorPortal
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_VENDOR_PORTAL
 
 autoscaling:
   enabled: true
