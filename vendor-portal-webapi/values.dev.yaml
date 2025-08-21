@@ -33,6 +33,51 @@ volumeMounts:
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Dev
+  - name: Serilog__WriteTo__2__Args__apiKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: ELASTICSEARCH_API_KEY
+  - name: ConnectionStrings__VendorPortal
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_VENDOR_PORTAL
+  - name: ConnectionStrings__ShareMaster
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_SHARE_MASTER
+  - name: ConnectionStrings__DataWarehouse
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_DATA_WAREHOUSE
+  - name: MongoDB__VendorPortal__ConnectionString
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: MONGO_CONNECTION
+  - name: Redis__ConnectionString
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: REDIS_CONNECTION
+  - name: AI__APIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: AI_API_KEY
+  - name: ChatBot__RsaPublicKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: CHATBOT_PUBLIC_KEY
+  - name: InternalAPIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: INTERNAL_API_KEY_VP
 
 autoscaling:
   enabled: true

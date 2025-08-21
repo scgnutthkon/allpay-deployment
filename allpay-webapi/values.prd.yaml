@@ -36,6 +36,106 @@ volumeMounts:
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Production
+  - name: Serilog__WriteTo__2__Args__apiKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: ELASTICSEARCH_API_KEY
+  - name: ConnectionStrings__AllPay
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_ALLPAY_VENDOR
+  - name: ConnectionStrings__ShareMaster
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_SHARE_MASTER
+  - name: ConnectionStrings__VendorPortal
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_CONNECTION_VENDOR_PORTAL
+  - name: MongoDB__AllPay__ConnectionString
+    valueFrom:
+        secretKeyRef:
+          name: allpay-secret
+          key: MONGO_CONNECTION
+  - name: MongoDB__VendorPortal__ConnectionString
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: MONGO_CONNECTION
+  - name: Redis__ConnectionString
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: REDIS_CONNECTION
+  - name: RabbitMQ__Password
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: RABBITMQ_PASSWORD
+  - name: Sap__KeyToken
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: SAP_KEY_TOKEN
+  - name: Doa__KeyToken
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DOA_KEY_TOKEN
+  - name: Ben__User
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: BEN_USERNAME
+  - name: Ben__Pass
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: BEN_PASSWORD
+  - name: Alfresco__APIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: ALFRESCO_API_KEY
+  - name: S3__AccessKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: S3_ACCESS_KEY
+  - name: S3__SecretKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: S3_SECRET_KEY
+  - name: SAPCheckClearing__SFTPUser
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: SAP_SFTP_USER
+  - name: SAPCheckClearing__SFTPPassword
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: SAP_SFTP_PASSWORD
+  - name: OCR__APIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: OCR_API_KEY
+  - name: AI__APIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: AI_API_KEY
+  - name: InternalAPIKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: INTERNAL_API_KEY_AP
 
 autoscaling:
   enabled: true

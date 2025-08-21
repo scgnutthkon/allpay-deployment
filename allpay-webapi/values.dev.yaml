@@ -36,6 +36,11 @@ volumeMounts:
 env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Dev
+  - name: Serilog__WriteTo__2__Args__apiKey
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: ELASTICSEARCH_API_KEY
   - name: ConnectionStrings__AllPay
     valueFrom:
       secretKeyRef:
@@ -106,11 +111,6 @@ env:
       secretKeyRef:
         name: allpay-secret
         key: S3_SECRET_KEY
-  - name: Serilog__WriteTo__2__Args__apiKey
-    valueFrom:
-      secretKeyRef:
-        name: allpay-secret
-        key: ELATICSEARCH_API_KEY
   - name: SAPCheckClearing__SFTPUser
     valueFrom:
       secretKeyRef:
@@ -131,11 +131,6 @@ env:
       secretKeyRef:
         name: allpay-secret
         key: AI_API_KEY
-  - name: Alfresco__APIKey
-    valueFrom:
-      secretKeyRef:
-        name: allpay-secret
-        key: ALFRESCO_API_KEY
   - name: InternalAPIKey
     valueFrom:
       secretKeyRef:

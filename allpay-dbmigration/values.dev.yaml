@@ -5,3 +5,10 @@ params:
   migrationDBs: "ap,sm,vp"
   mode: "up"
   envName: "dev"
+
+env:
+- name: DB_URI_ALLPAY
+  valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_URI
