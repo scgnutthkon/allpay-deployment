@@ -7,8 +7,18 @@ params:
   envName: "default"
 
 env:
-- name: DB_URI_ALLPAY
+- name: DB_URI_ALLPAY_VENDOR
   valueFrom:
       secretKeyRef:
         name: allpay-secret
-        key: DB_URI
+        key: DB_URI_ALLPAY_VENDOR
+- name: DB_URI_SHARE_MASTER
+  valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_URI_SHARE_MASTER
+- name: DB_URI_VENDOR_PORTAL
+  valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: DB_URI_VENDOR_PORTAL
