@@ -4,7 +4,7 @@ image:
 params:
   migrationDBs: "ap,sm,vp"
   mode: "up"
-  envName: "prd"
+  envName: "default"
 
 env:
 - name: DB_URI_ALLPAY
