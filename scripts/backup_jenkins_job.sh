@@ -1,0 +1,1 @@
+sudo tar -czvf jenkins-backup-$(date +%F).tar.gz /var/lib/jenkins/jobs/allpay/jobs/*/config.xml
