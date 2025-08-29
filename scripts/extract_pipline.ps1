@@ -1,4 +1,4 @@
-﻿# Set base paths
+# Set base paths
 $JobsRoot = "C:\Users\nutthkon\Desktop\test\jobs"
 $OutputRoot = "C:\Users\nutthkon\Documents\GitHub\allpay\deployment\pipeline"
 
