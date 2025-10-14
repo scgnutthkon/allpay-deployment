@@ -67,6 +67,11 @@ env:
       secretKeyRef:
         name: allpay-secret
         key: INTERNAL_API_KEY_VP
+  - name: Sap__KeyToken
+    valueFrom:
+      secretKeyRef:
+        name: allpay-secret
+        key: SAP_KEY_TOKEN
 
 # Additional volumes on the output Deployment definition.
 volumes:
